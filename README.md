@@ -6,10 +6,10 @@ EduGenie is a modular system designed to provide personalized academic support f
 
 ## 📁 Project Structure
 
-├── Backend # Node.js backend to connect frontend with APIs and Python scripts 
-├── FrontEnd # Frontend (React-based, not detailed here) 
-├── LangChain # Jupyter notebooks to test Python scripts (LangChain + Gemini) 
-└── PythonScripts # Finalized Python scripts hosted via FastAPI
+├── Backend # Node.js backend to connect frontend with APIs and Python scripts <br>
+├── FrontEnd # Frontend (React-based, not detailed here) <br>
+├── LangChain # Jupyter notebooks to test Python scripts (LangChain + Gemini) <br>
+└── PythonScripts # Finalized Python scripts hosted via FastAPI <br>
 
 ---
 

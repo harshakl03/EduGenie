@@ -1,0 +1,4 @@
+BackEnd/node_modules/
+LangChain/EduGenie.env
+LangChain/.ipynb_checkpoints
+BackEnd/.env

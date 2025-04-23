@@ -1,16 +1,13 @@
 const mongoose = require("mongoose");
 
 const UserSchema = new mongoose.Schema({
-  _id: { type: String, required: true },
-  username: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
-  level: { type: Number, enum: [1, 2, 3], required: true },
-  linked_id: {
+  username: {
     type: String,
     refPath: "role",
     unique: true,
-    sparse: true,
   },
+  password: { type: String, required: true },
+  level: { type: Number, enum: [1, 2, 3], required: true },
   role: {
     type: String,
     enum: ["Student", "Teacher", "Admin"],

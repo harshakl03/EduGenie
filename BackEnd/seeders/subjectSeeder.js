@@ -149,7 +149,6 @@ const subjectRecords = [
     Semester: 3,
     Credits: 1,
   },
-
   {
     _id: "BCS401",
     Subject_Name: "ANALYSIS & DESIGN OF ALGORITHMS",
@@ -194,7 +193,6 @@ const subjectRecords = [
     Credits: 3,
   },
   { _id: "BDSL456C", Subject_Name: "MERN", Semester: 4, Credits: 1 },
-
   {
     _id: "BCS501",
     Subject_Name: "SOFTWARE ENGINEERING AND PROJECT MANAGEMENT",

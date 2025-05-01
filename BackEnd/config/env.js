@@ -1,10 +1,11 @@
 const dotenv = require("dotenv");
+const path = require("path");
 dotenv.config();
 
 const ENV = {
   SERV_PORT: process.env.SERV_PORT,
   DB_URL: process.env.MONGODB_URL,
-  GOOGLE_API_KEY: process.env.GOOGLE_API_KEY,
+  JWT_SECRET: process.env.JWT_SECRET,
 };
 
 module.exports = ENV;

@@ -1,4 +1,9 @@
 BackEnd/node_modules/
+BackEnd/.env
 LangChain/EduGenie.env
 LangChain/.ipynb_checkpoints
-BackEnd/.env
+LangChain/.env
+PythonScripts/__pycache__
+PythonScripts/core/__pycache__
+PythonScripts/models/__pycache__
+PythonScripts/.env

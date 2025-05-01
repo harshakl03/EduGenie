@@ -16,6 +16,7 @@ const TeacherSchema = new mongoose.Schema({
     {
       sem: { type: Number },
       subjects: { type: [String], ref: "Subject" },
+      _id: false,
     },
   ],
 });

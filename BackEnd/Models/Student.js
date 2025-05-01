@@ -20,8 +20,10 @@ const StudentSchema = new mongoose.Schema({
           code: { type: String, ref: "Subject" },
           attedance: { type: String },
           Results: { type: ["String"], ref: "Result" },
+          _id: false,
         },
       ],
+      _id: false,
     },
   ],
 });

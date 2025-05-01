@@ -6,6 +6,9 @@ const app = express();
 const ENV = require("./config/env");
 const connectDB = require("./config/db");
 
+const UserRoutes = require("./routes/userRoutes");
+const PSRouter = require("./routes/PythonScripts");
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -16,6 +19,9 @@ connectDB();
 app.get("/", (req, res) => {
   res.send("Hello World");
 });
+
+app.use("/api/user", UserRoutes);
+app.use("/api/PythonScripts", PSRouter);
 
 app.listen(ENV.SERV_PORT, () => {
   console.log(`Server is Running Successfully on PORT ${ENV.SERV_PORT}`);

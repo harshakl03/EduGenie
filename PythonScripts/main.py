@@ -1,40 +1,133 @@
-from fastapi import FastAPI
+import requests.cookies
+from fastapi import FastAPI, HTTPException
+
+import google.generativeai as genai
+
+from langchain.memory import ConversationBufferMemory
+from langchain.chains import LLMChain
+from langchain.prompts import PromptTemplate
+from langchain_google_genai import ChatGoogleGenerativeAI
+
 import fitz
 import re
+import os
+import requests
+
+from models.InitializeRequest import InitializeRequest
+from models.DataExtractRequest import DataExtractRequest
+from models.ChatRequest import ChatRequest
+
+
+from models.ResultsResponse import ResultsResponse
+from models.StudentChatbotResponse import StudentChatbotResponse
+
+from core.config import settings
+
+
 
 app = FastAPI()
+sessions = requests.Session()
 
-@app.get("/")
-def extract_text_from_pdf(pdf_path="C:/Users/Admin/Downloads/Pavan.pdf"):
+os.environ["GOOGLE_API_KEY"] = settings.gemini_api_key
+genai.configure(api_key = settings.gemini_api_key)
+
+student_data = {}
+memory = ConversationBufferMemory(
+    memory_key="chat_history",
+    return_messages=True,
+    input_key="query"
+)
+
+template = """
+You are a student assistant bot. Use the following conversation and context to answer questions.
+
+{chat_history}
+
+Student's query: {query}
+"""
+
+prompt = PromptTemplate(
+    input_variables=["chat_history", "query"],
+    template=template
+)
+
+llm = ChatGoogleGenerativeAI(model="gemini-1.5-pro", temperature=0.5)
+chain = LLMChain(llm=llm, prompt=prompt, memory=memory)
+
+
+@app.post("/extract_data", response_model = ResultsResponse)
+def extract_data_from_pdf(student: DataExtractRequest):
+    print(student)
+    pdf_path = student.pdf_path
+    username = student.username
     doc = fitz.open(pdf_path)
     text = ""
     for page in doc:
         text += page.get_text()
     
-    pattern = re.compile(
-        r"(B[A-Z]{2,6}\d{3}[A-Z]?)\s+((?:[A-Z&\-\n\s]+)+?)\s+(\d{1,3})\s+(\d{1,3})\s+(\d{1,3})\s+(P|F|A|W|X|NE)\s+(\d{4}-\d{2}-\d{2})",
-        re.MULTILINE
-    )
+    if username in text :
+        match = re.search(r"Semester\s*:\s*(\d+)", text)
+        if match:
+            semester = match.group(1)
+        pattern = re.compile(
+            r'(?P<code>B\w{2,10})\n'                                      
+            r'(?P<name>(?:[A-Z][^\n]*\n?)+?)'                              
+            r'(?P<internal>\d{1,3})\n'                                    
+            r'(?P<external>\d{1,3})\n'                                    
+            r'(?P<total>\d{1,3})\n'                                    
+            r'(?P<result>[PFWAX])',                                       
+            re.MULTILINE
+        )
 
-    matches = pattern.findall(text)
-    results = []
+        results = []
+        for match in pattern.finditer(text):
+            subject_data = {
+                'subject_code': match.group('code').strip(),
+                'subject_name': match.group('name').replace('\n', ' ').strip(),
+                'internal': int(match.group('internal')),
+                'external': int(match.group('external')),
+                'total': int(match.group('total')),
+                'result': match.group('result')
+            }
+            results.append(subject_data)
 
-    for match in matches:
-        subject_code, subject_name, internal, external, total, result, date = match
-        # Clean up extra whitespace and line breaks in subject name
-        subject_name = ' '.join(subject_name.strip().split())
-        results.append({
-            "subject_code": subject_code.strip(),
-            "subject_name": subject_name,
-            "internal": int(internal),
-            "external": int(external),
-            "total": int(total),
-            "result": result,
-            "date": date
-        })
+        return {"semester":semester, "results":results}
+    
+    else:
+        raise HTTPException(
+            status_code=401,
+            detail="Invalid Student Username",
+            headers={"X-Error": "AuthorizationFailed"},
+        )
+    
+@app.get("/config_key")
+def config_key():
+    genai.configure(api_key = settings.gemini_api_key)
+    return settings.gemini_api_key
+    
 
-    return results
+def get_student_data(username):
+    data = requests.get(f"http://localhost:3000/api/PythonScripts/studentResultsById/{username}")
+    student_data = data.json()['results']
+    return student_data
 
-@app.get("/auth")
-def auth():
-    return "You Just Clicked Auth"
+@app.get("/initialize_chatbot/{username}")
+def initialize_student_chatbot(username: str):
+    student_data = get_student_data(username)
+    initial_context = f"""
+    Student Name: {student_data['name']}
+    Overall Result : {student_data['overall_results']}
+    """
+    memory.clear()
+    memory.chat_memory.add_user_message("Student data for chatbot context:")
+    memory.chat_memory.add_ai_message(initial_context)
+
+    return {"message":"Chatbot initialized successfully"}
+
+@app.post("/student_chatbot", response_model = StudentChatbotResponse, response_model_exclude_none=True)
+def student_chatbot(chat : ChatRequest):
+    try:
+        response = chain.run(chat.query)
+        return {"response":response, "message":"Response Obtained Successfully"}
+    except Exception as e:
+        return {"error": str(e), "message": "Error Occured"}

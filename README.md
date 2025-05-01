@@ -19,7 +19,7 @@ EduGenie is a modular system designed to provide personalized academic support f
 ## Create .env file under each folder
 1. Add MONGODB_URL, SERV_PORT, JWT_SECRET in .env file under BackEnd folder
 2. Add GEMINI_API_KEY in .env file under LangChain folder
-3. Add GEMINI_API_KEY in .env file under LangChain folder
+3. Add GEMINI_API_KEY in .env file under PythonScripts folder
 
 ---
 

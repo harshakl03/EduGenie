@@ -6,7 +6,7 @@ EduGenie is a modular system designed to provide personalized academic support f
 
 ## 📁 Project Structure
 
-├── Backend   
+├── BackEnd   
 ├── FrontEnd  
 ├── LangChain  
 └── PythonScripts   
@@ -15,10 +15,15 @@ EduGenie is a modular system designed to provide personalized academic support f
 #### Frontend (React-based, not detailed here).  
 #### Jupyter notebooks to test Python scripts (LangChain + Gemini).  
 #### Finalized Python scripts hosted via FastAPI. 
- 
+
+## Create .env file under each folder
+1. Add MONGODB_URL, SERV_PORT, JWT_SECRET in .env file under BackEnd folder
+2. Add GEMINI_API_KEY in .env file under LangChain folder
+3. Add GEMINI_API_KEY in .env file under LangChain folder
+
 ---
 
-## ⚙️ Backend Setup
+## ⚙️ Backend Setup (Node.js)
 
 1. Navigate to the `Backend` folder:
 
@@ -26,14 +31,14 @@ EduGenie is a modular system designed to provide personalized academic support f
 cd Backend
 ```
 
-2. Install the required dependencies
+2. Install the required dependencies:
 ```bash
 npm install
 ```
 
-3. Create a .env file inside the Backend folder and add your Google Gemini API key:
+3. Launch Node.js BackEnd:
 ```bash
-GEMINI_API_KEY=your_google_gemini_api_key_here
+nodemon index.js
 ```
 
 ## 🔬 LangChain + Jupyter Lab Environment Setup
@@ -75,6 +80,17 @@ jupyter lab
 The PythonScripts folder contains finalized Python APIs.
 These are designed to be hosted using FastAPI for production usage.
 
+1. Navigate to PythonScripts folder:
+ ```bash
+cd PythonScripts
+```
+
+2. Install required Python packages:
+```bash
+pip install PyMuPDF langchain langchain-google-genai google-generativeai langchain-community python-dotenv
+```
+
+3. Lauch FastAPI Backend:
 ```bash
 uvicorn main:app --reload
 ```

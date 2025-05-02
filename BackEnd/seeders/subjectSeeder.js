@@ -45,7 +45,7 @@ const subjectRecords = [
     Credits: 3,
   },
   {
-    _id: "BETCH105H",
+    _id: "BETCK105H",
     Subject_Name: "INTRODUCTION TO INTERNET OF THINGS(IOT)",
     Semester: 1,
     Credits: 3,
@@ -166,13 +166,13 @@ const subjectRecords = [
     _id: "BCSL404",
     Subject_Name: "ANALYSIS & DESIGN OF ALGORITHMS LAB",
     Semester: 4,
-    Credits: 3,
+    Credits: 1,
   },
   {
     _id: "BBOC407",
     Subject_Name: "BIOLOGY FOR COMPUTER ENGINEERS",
     Semester: 4,
-    Credits: 3,
+    Credits: 2,
   },
   {
     _id: "BUHK408",
@@ -187,7 +187,7 @@ const subjectRecords = [
     Credits: 0,
   },
   {
-    _id: "BSC405A",
+    _id: "BCS405A",
     Subject_Name: "DISCRETE MATHEMATICAL STRUCTURES",
     Semester: 4,
     Credits: 3,
@@ -223,7 +223,7 @@ const subjectRecords = [
     _id: "BCS508",
     Subject_Name: "ENVIRONMENTAL STUDIES AND E-WASTE MANAGEMENT",
     Semester: 5,
-    Credits: 3,
+    Credits: 1,
   },
   {
     _id: "BPEK559",

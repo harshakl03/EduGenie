@@ -108,15 +108,21 @@ def config_key():
 
 def get_student_data(username):
     data = requests.get(f"http://localhost:3000/api/PythonScripts/studentResultsById/{username}")
-    student_data = data.json()['results']
+    student_data = data.json()['data']
     return student_data
 
 @app.get("/initialize_chatbot/{username}")
 def initialize_student_chatbot(username: str):
     student_data = get_student_data(username)
+    if(len(student_data['overall_results']) == 0): return {"message":"Cannot Initialize Chatbot. Update your attendance and results first"}
     initial_context = f"""
     Student Name: {student_data['name']}
     Overall Result : {student_data['overall_results']}
+
+    SGPA is calculated sem wise whereas CGPA is calculated for overall subjects
+    Grade Point for each subject is calculated using total marks for that subject / 10 and floor the value + 1. If total marks for that subject / 10 is 10 then grade points is 10
+    SGPA = (Credits X Grade Points)/Total Credits.
+    CGPA = (Sum of all semesters (SGPA X Total Credits in that semester))/Overall Credits of all semesters
     """
     memory.clear()
     memory.chat_memory.add_user_message("Student data for chatbot context:")

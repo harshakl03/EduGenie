@@ -4,6 +4,7 @@ LangChain/EduGenie.env
 LangChain/.ipynb_checkpoints
 LangChain/.env
 PythonScripts/__pycache__
+PythonScripts/__pycache__/main.cpython-312.pyc
 PythonScripts/core/__pycache__
 PythonScripts/models/__pycache__
 PythonScripts/.env

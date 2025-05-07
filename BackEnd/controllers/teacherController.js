@@ -36,7 +36,7 @@ const createTeacher = async (req, res) => {
       .status(200)
       .json({ ...userResponse, message: "Teacher registered successfully" });
   } catch (err) {
-    return res.status(500).json({ error: err.message });
+    return res.status(err.statusCode || 500).json({ error: err.message });
   }
 };
 

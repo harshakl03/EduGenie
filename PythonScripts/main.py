@@ -1,4 +1,3 @@
-import requests.cookies
 from fastapi import FastAPI, HTTPException
 
 import google.generativeai as genai
@@ -46,6 +45,8 @@ You are a student assistant bot. Use the following conversation and context to a
 Student's query: {query}
 """
 
+settings.gemini_api_key
+
 prompt = PromptTemplate(
     input_variables=["chat_history", "query"],
     template=template
@@ -55,11 +56,10 @@ llm = ChatGoogleGenerativeAI(model="gemini-1.5-pro", temperature=0.5)
 chain = LLMChain(llm=llm, prompt=prompt, memory=memory)
 
 
-@app.post("/extract_data", response_model = ResultsResponse)
-def extract_data_from_pdf(student: DataExtractRequest):
+@app.post("/extract_data/{username}", response_model = ResultsResponse)
+def extract_data_from_pdf(username: str, student: DataExtractRequest):
     print(student)
     pdf_path = student.pdf_path
-    username = student.username
     doc = fitz.open(pdf_path)
     text = ""
     for page in doc:

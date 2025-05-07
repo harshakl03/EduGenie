@@ -63,7 +63,7 @@ const login = async (req, res) => {
       level: UserRecord.level,
     });
   } catch (err) {
-    return res.status(500).json({ error: err.message });
+    return res.status(err.statusCode || 500).json({ error: err.message });
   }
 };
 

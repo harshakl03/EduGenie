@@ -7,7 +7,7 @@ const {
   initializeStudentChatbot,
 } = require("../controllers/PyhtonScripts");
 
-router.post("/extractData", extractData);
+router.post("/extractData/:username", extractData);
 router.get("/studentResultsById/:id", getStudentResultsById);
 router.get("/initializeStudentChatbot/:username", initializeStudentChatbot);
 router.get("/studentChatbot", queryStudentChatbot);

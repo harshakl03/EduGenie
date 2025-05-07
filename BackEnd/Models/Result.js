@@ -19,4 +19,6 @@ const ResultSchema = new mongoose.Schema({
   ],
 });
 
+ResultSchema.index({ student_id: 1, semester: 1 }, { unique: true });
+
 module.exports = mongoose.model("Result", ResultSchema);

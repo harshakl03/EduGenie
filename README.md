@@ -85,12 +85,22 @@ These are designed to be hosted using FastAPI for production usage.
 cd PythonScripts
 ```
 
-2. Install required Python packages:
-```bash
-pip install PyMuPDF langchain langchain-google-genai google-generativeai langchain-community python-dotenv
+2. Create virtual environment:
+ ```bash
+python -m venv env
 ```
 
-3. Lauch FastAPI Backend:
+4. Activate the environment:
+ ```bash
+./env/Scripts/activate
+```
+
+5. Install required Python packages:
+```bash
+pip install uvicorn fastapi PyMuPDF langchain langchain-google-genai google-generativeai langchain-community python-dotenv
+```
+
+6. Lauch FastAPI Backend:
 ```bash
 uvicorn main:app --reload
 ```

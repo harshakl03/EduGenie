@@ -36,7 +36,12 @@ cd Backend
 npm install
 ```
 
-3. Launch Node.js BackEnd:
+3. Setup nodemon:
+```bash
+npm install -g nodemon
+```
+
+4. Launch Node.js BackEnd:
 ```bash
 nodemon index.js
 ```

@@ -24,11 +24,13 @@ EduGenie is a modular system designed to provide personalized academic support f
 ---
 
 ## ⚙️ Backend Setup (Node.js)
+Developed using **Node.js**, **Express.js**, and **MongoDB** for a RESTful API structure.  
+Implements secure authentication and scalable database integration.
 
-1. Navigate to the `Backend` folder:
+1. Navigate to the `BackEnd` folder:
 
 ```bash
-cd Backend
+cd BackEnd
 ```
 
 2. Install the required dependencies:
@@ -44,6 +46,24 @@ npm install -g nodemon
 4. Launch Node.js BackEnd:
 ```bash
 nodemon index.js
+```
+
+## 🖥️ Frontend Setup (React.js)
+Built using **React.js** with **Tailwind CSS** for styling and **Vite** as the build tool.
+
+1. Navigate to the `FrontEnd` folder:
+```bash
+cd FrontEnd
+```
+
+2. Install the required dependencies:
+```bash
+npm install
+```
+
+3. Lauch React.js FrontEnd:
+```bash
+npm run dev
 ```
 
 ## 🔬 LangChain + Jupyter Lab Environment Setup

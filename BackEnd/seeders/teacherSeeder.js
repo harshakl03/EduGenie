@@ -14,20 +14,7 @@ const teacherRecords = [
     Phone_Number: 8660472534,
     Designation: "Assistant Professor",
     Department: "CSE(DS)",
-    Subjects_Undertaken: [
-      {
-        sem: 3,
-        subjects: ["BCS303"],
-      },
-      {
-        sem: 4,
-        subjects: ["BDSL456C"],
-      },
-      {
-        sem: 4,
-        subjects: ["BAD515B", "BCDL504"],
-      },
-    ],
+    Subjects_Undertaken: ["BCS303", "BDSL456C", "BAD515B", "BCDL504"],
   },
   {
     _id: "tejaswini_ps",
@@ -41,16 +28,7 @@ const teacherRecords = [
     Phone_Number: 9902714366,
     Designation: "Assistant Professor",
     Department: "CSE(DS)",
-    Subjects_Undertaken: [
-      {
-        sem: 3,
-        subjects: ["BCS306A"],
-      },
-      {
-        sem: 4,
-        subjects: ["BCS401", "BCSL404"],
-      },
-    ],
+    Subjects_Undertaken: ["BCS306A", "BCS401", "BCSL404"],
   },
 ];
 

@@ -52,7 +52,7 @@ prompt = PromptTemplate(
     template=template
 )
 
-llm = ChatGoogleGenerativeAI(model="gemini-1.5-pro", temperature=0.5)
+llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash", temperature=0.5)
 chain = LLMChain(llm=llm, prompt=prompt, memory=memory)
 
 

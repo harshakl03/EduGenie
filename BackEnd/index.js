@@ -7,6 +7,7 @@ const ENV = require("./config/env");
 const connectDB = require("./config/db");
 
 const UserRoutes = require("./routes/userRoutes");
+const TeacherRoutes = require("./routes/teacherRoutes");
 const PSRouter = require("./routes/PythonScripts");
 
 app.use(express.json());
@@ -21,6 +22,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/user", UserRoutes);
+app.use("/api/teacher", TeacherRoutes);
 app.use("/api/PythonScripts", PSRouter);
 
 app.listen(ENV.SERV_PORT, () => {

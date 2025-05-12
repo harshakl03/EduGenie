@@ -12,13 +12,7 @@ const TeacherSchema = new mongoose.Schema({
   Phone_Number: { type: Number },
   Designation: { type: String, required: true },
   Department: { type: String, required: true },
-  Subjects_Undertaken: [
-    {
-      sem: { type: Number },
-      subjects: { type: [String], ref: "Subject" },
-      _id: false,
-    },
-  ],
+  Subjects_Undertaken: [{ type: String, ref: "Subject" }],
 });
 
 module.exports = mongoose.model("Teacher", TeacherSchema);

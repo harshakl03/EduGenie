@@ -12,17 +12,10 @@ const StudentSchema = new mongoose.Schema({
   },
   Phone_Number: { type: Number },
   Course: { type: "String", required: true },
-  Subjects_Enrolled: [
+  attendance: [
     {
-      sem: { type: Number },
-      subjects: [
-        {
-          code: { type: String, ref: "Subject" },
-          attedance: { type: String },
-          Results: { type: ["String"], ref: "Result" },
-          _id: false,
-        },
-      ],
+      code: { type: String, ref: "Subject" },
+      attedance: { type: String, default: "N/A" },
       _id: false,
     },
   ],

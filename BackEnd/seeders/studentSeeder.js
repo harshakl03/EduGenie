@@ -14,6 +14,14 @@ const studentRecords = [
     },
     Phone_Number: 9353991614,
     Course: "CSE(DS)",
+    attendance: [
+      { code: "BCS303" },
+      ,
+      { code: "BCS306A" },
+      { code: "BCS401" },
+      { code: "BDSL456C" },
+      { code: "BAD515B" },
+    ],
   },
   {
     _id: "1BI22CD030",
@@ -27,6 +35,7 @@ const studentRecords = [
     },
     Phone_Number: 7204163730,
     Course: "CSE(DS)",
+    attendance: [{ code: "BCS401" }, { code: "BDSL456C" }, { code: "BAD515B" }],
   },
   {
     _id: "1BI22CD026",
@@ -40,6 +49,12 @@ const studentRecords = [
     },
     Phone_Number: 7795023287,
     Course: "CSE(DS)",
+    attendance: [
+      { code: "BCS303" },
+      { code: "BCSL404" },
+      { code: "BDSL456C" },
+      { code: "BCDL504" },
+    ],
   },
   {
     _id: "1BI22CD012",
@@ -53,6 +68,7 @@ const studentRecords = [
     },
     Phone_Number: 8105833763,
     Course: "CSE(DS)",
+    attendance: [{ code: "BCS303" }, { code: "BDSL456C" }, { code: "BAD515B" }],
   },
 ];
 

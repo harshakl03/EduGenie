@@ -63,7 +63,11 @@ const extractData = async (req, res) => {
 
     throw new Error(response.statusText);
   } catch (err) {
-    res.status(err.statusCode || 500).json({ error: err.message });
+    if (err.code == 11000)
+      return res
+        .status(err.statusCode || 500)
+        .json({ error: "Student data is already extracted" });
+    return res.status(err.statusCode || 500).json({ error: err.message });
   }
 };
 

@@ -5,3 +5,4 @@ models/__pycache__
 .env
 env/
 env/Lib/site-packages/
+.DS_Store

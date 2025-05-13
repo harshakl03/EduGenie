@@ -4,6 +4,7 @@ import Topbar from './ui/Topbar';
 import Footer from './ui/Footer';
 import Dashboard from './ui/Dashboard';
 
+
 function App() {
   return (
     <div class="flex h-screen bg-gray-50">

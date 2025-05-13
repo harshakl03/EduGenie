@@ -2,9 +2,9 @@ import Button from "./Button";
 
 export default function Dashboard() {
   return (
-    <div className="space-y-6 p-4 bg-[#f3f8ff]">
+    <div className="space-y-6 p-1 bg-[#f3f8ff]">
       {/* Chat Bot Card */}
-      <div className="border p-4 border-red-300 rounded-xl shadow-sm">
+      <div className="border p-2 border-red-300 rounded-xl shadow-sm">
         <div className="bg-red-100 p-4 rounded-xl min-h-[220px] flex flex-col justify-between">
           <h2 className="text-3xl font-extrabold text-center text-blue-900 mb-4">
             Edu Genie Chat Bot
@@ -19,7 +19,7 @@ export default function Dashboard() {
       </div>
 
       {/* Upload Document */}
-      <div className="border border-yellow-400 rounded-xl p-4">
+      <div className="border border-yellow-400 rounded-xl p-2">
         <div className="bg-yellow-100 border border-yellow-300 p-4 rounded-lg flex items-center gap-3 text-lg font-medium text-gray-800">
           <span className="text-2xl">↓</span>
           Upload your document

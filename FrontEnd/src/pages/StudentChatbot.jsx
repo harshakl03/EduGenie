@@ -1,5 +1,3 @@
-export default function StudentChatbot(){
-    return <div> StudentChatbot
-        
-    </div>
+export default function StudentChatbot() {
+  return <div> StudentChatbot</div>;
 }

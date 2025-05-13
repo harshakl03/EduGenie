@@ -11,7 +11,10 @@ export default function Sidebar() {
 
       {/* Navigation */}
       <nav class="space-y-3 min-w-full">
-        <a href="#" class="flex items-center text-l  text-white bg-[#1C398E] gap-2 shadow-blue-500 font-medium border-2 p-2 rounded-md">
+        <a
+          href="#"
+          class="flex items-center text-l  text-white bg-[#1C398E] gap-2 shadow-blue-500 font-medium border-2 p-2 rounded-md"
+        >
           <LayoutDashboard class="w-8 h-5" />
           Dashboard
         </a>

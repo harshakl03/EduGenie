@@ -25,9 +25,6 @@ const router = createBrowserRouter([
     ],
   },
   {
-
-
-    
     path: "/teacher",
     children: [
       {

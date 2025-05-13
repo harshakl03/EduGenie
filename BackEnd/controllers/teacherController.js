@@ -1,5 +1,6 @@
 const Teacher = require("../Models/Teacher");
 const Student = require("../Models/Student");
+const User = require("../Models/User");
 const { isExisting, createUser, isLoggedIn } = require("./userController");
 
 const createTeacher = async (req, res) => {
@@ -52,7 +53,7 @@ const getStudentsList = async (req, res) => {
         .status(403)
         .json({ message: "Unauthorized: No token provided" });
 
-    const teacher = await Teacher.findById(username);
+    const teacher = await User.findOne({username});
 
     if (!teacher)
       return res

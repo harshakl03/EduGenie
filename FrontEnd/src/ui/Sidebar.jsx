@@ -2,7 +2,7 @@ import { LayoutDashboard, User, Bot } from "lucide-react";
 
 export default function Sidebar() {
   return (
-    <div className="w-64 bg-white/60 backdrop-blur-xl border-r p-4 flex flex-col items-center transition-all duration-300">
+    <div className="w-60 bg-white/50 backdrop-blur-xl border-r p-4 flex flex-col items-center transition-all duration-300">
       {/* Logo Image */}
       <img
         src="/image.png"

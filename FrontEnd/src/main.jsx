@@ -9,6 +9,7 @@ import Dashboard from "../src/pages/Dashboard.jsx";
 import Profile from "../src/pages/Profile.jsx";
 import StudentChatbot from "../src/pages/StudentChatbot.jsx";
 import App from "./App.jsx";
+import TeacherDashboard from "./pages/TeacherDashboard.jsx";
 
 const router = createBrowserRouter([
   {
@@ -39,7 +40,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <Dashboard />,
+    element: <TeacherDashboard />,
   },
   {
     path: "/profile/:id",

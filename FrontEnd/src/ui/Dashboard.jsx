@@ -2,7 +2,7 @@ import Button from "./Button";
 
 export default function Dashboard() {
   return (
-    <div className="space-y-6 p-3 bg-[#f3f8ff]">
+    <div className="space-y-6 p-3 bg-white-50">
       {/* Chat Bot Card */}
       <div className="border p-2 border-red-300 rounded-xl shadow-sm">
         <div className="bg-red-100 p-4 rounded-xl min-h-[220px] flex flex-col justify-between">

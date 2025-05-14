@@ -141,7 +141,7 @@ export default function TeacherDashboard() {
 
         {/* Chat Bot */}
         <section className="border border-blue-200 p-5 rounded-xl shadow-sm bg-white">
-          <div className="bg-[#f3f8ff] p-6 rounded-xl flex flex-col items-center justify-between min-h-[220px]">
+          <div className="bg-[#f3f8ff] p-1 rounded-xl flex flex-col items-center justify-between min-h-[220px]">
             <h2 className="text-2xl font-extrabold text-blue-900 text-center mb-2">
               Edu Genie Chat Bot
             </h2>

@@ -7,12 +7,12 @@ import TeacherDashboard from "./pages/TeacherDashboard";
 
 function App() {
   return (
-    <div class="flex h-screen bg-gray-50">
+    <div class="flex min-h-screen bg-gray-50">
       <Sidebar />
-      <div class="flex flex-col flex-1 bg-white-50">
+      <div class="flex flex-col flex-1 bg-white-50 min-h-screen">
         <Topbar />
         <main class="p-6 overflow-y-auto">
-          <TeacherDashboard />
+          <Dashboard />
         </main>
         <Footer />
       </div>

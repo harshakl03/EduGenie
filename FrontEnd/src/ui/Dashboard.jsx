@@ -30,7 +30,7 @@ export default function Dashboard() {
       </button>
 
       {/* Right section (Uploads and Stats) */}
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-3 gap-4 row-span-1">
         {/* Recent Uploads */}
         <div className="border border-blue-800 bg-blue-900 text-white p-4 rounded-xl col-span-1">
           <h3 className="font-bold text-lg mb-3 border-b border-white pb-1">

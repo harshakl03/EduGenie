@@ -1,7 +1,17 @@
 import Button from "../ui/Button";
 import Field from "../ui/Field";
+import { useForm } from "react-hook-form";
 
 export default function StudentRegistration() {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+  const onSubmit = (data) => console.log(data);
+  const password = watch("password");
+
   return (
     <div className="flex flex-col md:flex-row h-full min-h-screen w-full bg-white">
       {/* Image Section */}
@@ -18,31 +28,81 @@ export default function StudentRegistration() {
           Welcome to Edu Genie
         </h1>
 
-        <form className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-3xl">
+        <form
+          className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-3xl"
+          onSubmit={handleSubmit(onSubmit)}
+        >
           <div>
-            <Field text="Full Name" type="text" placeholder="Pavan.D" />
+            <Field
+              text="Full Name"
+              type="text"
+              placeholder="Pavan.D"
+              register={register}
+              variable="name"
+              errors={errors}
+            />
           </div>
           <div>
-            <Field text="Username" type="text" placeholder="@pav6n" />
+            <Field
+              text="Username"
+              type="text"
+              placeholder="@pav6n"
+              register={register}
+              variable="username"
+              errors={errors}
+            />
           </div>
           <div>
-            <Field text="DOB" type="date" />
+            <Field
+              text="DOB"
+              type="date"
+              register={register}
+              variable="DOB"
+              errors={errors}
+            />
           </div>
           <div>
             <Field
               text="Password"
               type="password"
               placeholder="at least 8 characters"
+              register={register}
+              variable="password"
+              errors={errors}
+              validation={{
+                minLength: {
+                  value: 8,
+                  message: "Must be at least 8 characters",
+                },
+              }}
             />
           </div>
           <div>
-            <Field type="text" text="Course" placeholder="ex. Data Science" />
+            <Field
+              type="text"
+              text="Course"
+              placeholder="ex. Data Science"
+              register={register}
+              variable="Course"
+              errors={errors}
+            />
           </div>
           <div>
             <Field
               text="Confirm Password"
               type="password"
               placeholder="at least 8 characters"
+              register={register}
+              variable="conf_pw"
+              errors={errors}
+              validation={{
+                minLength: {
+                  value: 8,
+                  message: "Must be at least 8 characters",
+                },
+                validate: (value) =>
+                  value === password || "Passwords do not match",
+              }}
             />
           </div>
           <div>
@@ -50,6 +110,9 @@ export default function StudentRegistration() {
               text="Phone Number"
               type="text"
               placeholder="ex. +91 2345678912"
+              register={register}
+              variable="Phone_Number"
+              errors={errors}
             />
           </div>
           <div>
@@ -57,19 +120,43 @@ export default function StudentRegistration() {
               text="Address"
               type="text"
               placeholder="ex. Door No. 123...."
+              register={register}
+              variable="Address"
+              errors={errors}
             />
           </div>
           <div>
-            <Field text="City" type="text" placeholder="Bangalore" />
+            <Field
+              text="City"
+              type="text"
+              placeholder="Bangalore"
+              register={register}
+              variable="city"
+              errors={errors}
+            />
           </div>
           <div>
-            <Field text="State" type="text" placeholder="Karnataka" />
+            <Field
+              text="State"
+              type="text"
+              placeholder="Karnataka"
+              register={register}
+              variable="state"
+              errors={errors}
+            />
           </div>
           <div className="md:col-span-2">
-            <Field text="Country" type="text" placeholder="India" />
+            <Field
+              text="Country"
+              type="text"
+              placeholder="India"
+              register={register}
+              variable="country"
+              errors={errors}
+            />
           </div>
           <div className="md:col-span-2">
-            <Button text="Create an account" type="primary" />
+            <Button text="Create an account" type="submit" kind="primary" />
           </div>
           <div className="md:col-span-2 text-center text-sm">
             Already have an account?

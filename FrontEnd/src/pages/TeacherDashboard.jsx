@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { Button } from "@/components/ui/button"; // Corrected to named export
+import  Button  from "../ui/Button";
 
-export default function AttendanceDashboard() {
+export default function TeacherDashboard() {
   const [showAllStudents, setShowAllStudents] = useState(false);
   const [subjects, setSubjects] = useState([
     "Maths",

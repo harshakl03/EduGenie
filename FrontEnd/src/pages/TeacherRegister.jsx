@@ -1,6 +1,17 @@
 import Button from "../ui/Button";
+import { useForm } from "react-hook-form";
+import Field from "../ui/Field";
 
 export default function TeacherRegistration() {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+  const password = watch("password");
+  const message = "this field is required";
+  const onSubmit = (data) => console.log(data);
   return (
     <div className="flex flex-col md:flex-row h-full min-h-screen w-full bg-white">
       {/* Image Section */}
@@ -17,130 +28,148 @@ export default function TeacherRegistration() {
           Welcome to Edu Genie
         </h1>
 
-        <form className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-3xl">
+        <form
+          className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-3xl"
+          onSubmit={handleSubmit(onSubmit)}
+        >
           <div>
-            <label className="block text-[#1A237E] font-medium mb-1">
-              Full Name
-            </label>
-            <input
+            <Field
               type="text"
+              text="Full Name"
               placeholder="Pavan.D"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg"
+              register={register}
+              variable="name"
+              errors={errors}
             />
           </div>
           <div>
-            <label className="block text-[#1A237E] font-medium mb-1">
-              Username
-            </label>
-            <input
+            <Field
               type="text"
+              text="Username"
               placeholder="@pav6n"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg"
+              register={register}
+              variable="username"
+              errors={errors}
             />
           </div>
 
           <div>
-            <label className="block text-[#1A237E] font-medium mb-1">DOB</label>
-            <input
+            <Field
               type="date"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-500"
+              text="DOB"
+              register={register}
+              variable="DOB"
+              errors={errors}
             />
           </div>
           <div>
-            <label className="block text-[#1A237E] font-medium mb-1">
-              Password
-            </label>
-            <input
+            <Field
               type="password"
-              placeholder="at least 8 characters"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg"
+              text="Password"
+              placeholder="at least 8 charecters"
+              register={register}
+              variable="password"
+              errors={errors}
+              validation={{
+                minLength: {
+                  value: 8,
+                  message: "Must be at least 8 characters",
+                },
+              }}
             />
           </div>
 
           <div>
-            <label className="block text-[#1A237E] font-medium mb-1">
-              Department
-            </label>
-            <input
+            <Field
               type="text"
+              text="Department"
               placeholder="ex. Computer Science"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg"
+              register={register}
+              variable="Department"
+              errors={errors}
             />
           </div>
           <div>
-            <label className="block text-[#1A237E] font-medium mb-1">
-              Confirm Password
-            </label>
-            <input
+            <Field
               type="password"
+              text="Confirm Password"
               placeholder="at least 8 characters"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg"
+              register={register}
+              variable="conf_pw"
+              errors={errors}
+              validation={{
+                minLength: {
+                  value: 8,
+                  message: "Must be at least 8 characters",
+                },
+                validate: (value) =>
+                  value === password || "Passwords do not match",
+              }}
             />
           </div>
 
           <div>
-            <label className="block text-[#1A237E] font-medium mb-1">
-              Designation
-            </label>
-            <input
+            <Field
               type="text"
+              text="Designation"
               placeholder="ex. Assistant Professor"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg"
+              register={register}
+              variable="Designation"
+              errors={errors}
             />
           </div>
           <div>
-            <label className="block text-[#1A237E] font-medium mb-1">
-              Phone Number
-            </label>
-            <input
+            <Field
               type="text"
+              text="Phone Number"
               placeholder="ex. +91 2345678912"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg"
+              register={register}
+              variable="Phone_Number"
+              errors={errors}
             />
           </div>
 
           <div>
-            <label className="block text-[#1A237E] font-medium mb-1">
-              Address
-            </label>
-            <input
+            <Field
               type="text"
+              text="Address"
               placeholder="ex. Door No. 123...."
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg"
+              register={register}
+              variable="Address"
+              errors={errors}
             />
           </div>
           <div>
-            <label className="block text-[#1A237E] font-medium mb-1">
-              City
-            </label>
-            <input
+            <Field
               type="text"
+              text="City"
               placeholder="Bangalore"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg"
+              register={register}
+              variable="city"
+              errors={errors}
             />
           </div>
 
           <div>
-            <label className="block text-[#1A237E] font-medium mb-1">
-              State
-            </label>
-            <input
+            <Field
               type="text"
-              placeholder="karnataka"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg"
+              text="State"
+              placeholder="eg. karnataka"
+              register={register}
+              variable="state"
+              errors={errors}
             />
           </div>
           <div>
-            <label className="block text-[#1A237E] font-medium mb-1">
-              Country
-            </label>
-            <input
+            <Field
               type="text"
+              text="Country"
               placeholder="India"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg"
+              register={register}
+              variable="country"
+              errors={errors}
             />
           </div>
-
           <div className="md:col-span-2">
             {/* <button
               type="submit"
@@ -149,7 +178,7 @@ export default function TeacherRegistration() {
               Create an account
             </button> */}
 
-            <Button text="Create an account" type="primary" />
+            <Button text="Create an account" type="submit" kind="primary" />
           </div>
 
           <div className="md:col-span-2 text-center text-sm">

@@ -1,5 +1,5 @@
-export default function Button({ text, type }) {
-  if (type === "primary")
+export default function Button({ text, type, kind }) {
+  if (kind === "primary")
     return (
       <button
         type="submit"
@@ -10,7 +10,10 @@ export default function Button({ text, type }) {
     );
 
   return (
-    <button className="bg-blue-600 text-white text-lg px-10 py-2 rounded-xl font-semibold hover:bg-blue-700 transition">
+    <button
+      type={type}
+      className="bg-blue-600 text-white text-lg px-10 py-2 rounded-xl font-semibold hover:bg-blue-700 transition"
+    >
       {text}
     </button>
   );

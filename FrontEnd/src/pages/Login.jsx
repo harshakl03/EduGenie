@@ -1,7 +1,16 @@
 import Button from "../ui/Button";
 import Field from "../ui/Field";
+import { useForm } from "react-hook-form";
 
 export default function LoginPage() {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+  const onSubmit = (data) => console.log(data);
+
   return (
     <div className="flex flex-col md:flex-row h-screen w-full bg-white">
       {/* Image Section (Top on mobile, right on desktop) */}
@@ -18,29 +27,37 @@ export default function LoginPage() {
           Welcome Back
         </h2>
 
-        <form className="w-full max-w-sm">
+        <form className="w-full max-w-sm" onSubmit={handleSubmit(onSubmit)}>
           <Field
-            type="email"
-            placeholder="Example@email.com"
+            type="text"
+            placeholder="@pav6n"
             text="Email"
             to="login"
+            register={register}
+            variable="username"
+            errors={errors}
           />
-
           <Field
             type="password"
             placeholder="at least 8 characters"
             text="Password"
             to="login"
+            register={register}
+            variable="password"
+            errors={errors}
+            validation={{
+              minLength: {
+                value: 8,
+                message: "Must be at least 8 characters",
+              },
+            }}
           />
-
           <div className="flex justify-end mb-6">
             <a href="#" className="text-sm text-blue-700 hover:underline">
               Forgot Password?
             </a>
           </div>
-
-          <Button text="Sign in" type="primary" />
-
+          <Button text="Sign in" type="submit" kind="primary" />
           <p className="text-sm text-center text-[#1A237E] mt-6">
             Don't you have an account?{" "}
             <a href="#" className="text-blue-700 hover:underline">

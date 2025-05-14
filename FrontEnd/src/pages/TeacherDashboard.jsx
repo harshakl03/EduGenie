@@ -4,20 +4,20 @@ import Button from "../ui/Button";
 export default function TeacherDashboard() {
   const [showAllStudents, setShowAllStudents] = useState(false);
   const [subjects, setSubjects] = useState([
-    "Maths",
-    "Physics",
-    "DSA",
-    "ADA",
-    "PE",
+    "BDA",
+    "EDA",
+    "AI ML",
+    "ML LAB",
+    "GEN AI",
+    "Project Management",
   ]);
   const [students, setStudents] = useState([
-    "Pavan.D",
-    "bomber",
-    "kabhi kabhi",
-    "Double Gamer",
-    "Pussy",
-    "Student 6",
-    "Student 7",
+    "Pavan D",
+    "Harsha K L",
+    "Eshwar R",
+    "Amaan M",
+    "Kushal ",
+    "Arya B V",
   ]);
 
   const addSubject = () => {
@@ -46,10 +46,10 @@ export default function TeacherDashboard() {
   const dates = getDates();
 
   return (
-    <div className="p-6 bg-white max-w-screen-xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
-      {/* Left Side: Dates + Subjects */}
-      <div className="lg:col-span-2 flex flex-col gap-8">
-        {/* Dates */}
+    <div className="p-6 bg-white max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+      {/* LEFT SIDE: ATTENDANCE SECTION */}
+      <div className="flex flex-col gap-8">
+        {/* DATES */}
         <section>
           <h2 className="text-2xl font-bold text-blue-900 mb-4">Attendance</h2>
           <div className="flex gap-3 overflow-x-auto pb-2">
@@ -69,41 +69,37 @@ export default function TeacherDashboard() {
           </div>
         </section>
 
-        {/* Subject Cards */}
-        <section>
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-            {subjects.map((subject, index) => (
-              <div
-                key={index}
-                className="bg-[#f3f8ff] rounded-xl border border-blue-200 p-4 flex flex-col justify-between shadow"
-              >
-                <div>
-                  <h4 className="text-lg font-semibold text-blue-900 mb-1">
-                    {subject}
-                  </h4>
-                  <p className="text-sm text-gray-600">Class Time: 08:07 AM</p>
-                </div>
-                <Button className="mt-4 bg-green-100 hover:bg-green-200 text-green-900 px-4 py-2 rounded-lg text-sm font-semibold">
-                  Mark Attendance
-                </Button>
+        {/* SUBJECT CARDS */}
+        <section className="flex flex-col gap-4">
+          {subjects.map((subject, index) => (
+            <div
+              key={index}
+              className="bg-[#f3f8ff] rounded-xl border border-blue-200 p-4 flex justify-between items-center shadow"
+            >
+              <div>
+                <h4 className="text-lg font-semibold text-blue-900 mb-1">
+                  {subject}
+                </h4>
+                <p className="text-sm text-gray-600">Class Time: 08:07 AM</p>
               </div>
-            ))}
-          </div>
+              <Button text="Mark Attendance" kind="primary" />
+            </div>
+          ))}
           <button
             onClick={addSubject}
-            className="mt-4 w-full py-2 bg-blue-100 hover:bg-blue-200 text-blue-800 font-semibold rounded-lg"
+            className="mt-2 w-full py-2 bg-blue-100 hover:bg-blue-200 text-blue-800 font-semibold rounded-lg"
           >
             + Add Subject
           </button>
         </section>
       </div>
 
-      {/* Right Side: Students + Chat Bot */}
-      <div className="flex flex-col gap-8">
-        {/* Students */}
+      {/* RIGHT SIDE: STUDENTS & CHAT BOT */}
+      <div className="flex flex-col gap-6">
+        {/* STUDENTS LIST */}
         <section className="border rounded-xl p-5 shadow-sm bg-white border-blue-200">
           <h3 className="text-xl font-bold text-blue-900 mb-4">Students</h3>
-          <div className="space-y-3 max-h-[360px] overflow-y-auto pr-1">
+          <div className="space-y-3 max-h-[400px] overflow-y-auto pr-1">
             {(showAllStudents ? students : students.slice(0, 6)).map(
               (student, index) => (
                 <div
@@ -115,7 +111,7 @@ export default function TeacherDashboard() {
                     onClick={() =>
                       window.open(`/attendance/${student}`, "_blank")
                     }
-                    className="px-3 py-1 bg-yellow-200 hover:bg-yellow-300 text-yellow-900 text-sm font-semibold rounded-md transition"
+                    className="px-3 py-1 bg-yellow-400 hover:bg-yellow-500 text-white text-sm font-semibold rounded-md transition"
                   >
                     Check
                   </button>
@@ -139,18 +135,16 @@ export default function TeacherDashboard() {
           </div>
         </section>
 
-        {/* Chat Bot */}
-        <section className="border border-blue-200 p-5 rounded-xl shadow-sm bg-white">
-          <div className="bg-[#f3f8ff] p-1 rounded-xl flex flex-col items-center justify-between min-h-[220px]">
+        {/* CHAT BOT */}
+        <section className="border border-red-500 px-2 py-2 rounded-xl shadow-sm bg-white h-full">
+          <div className="bg-red-100 p-6 rounded-xl flex flex-col items-center justify-between min-h-[300px]">
             <h2 className="text-2xl font-extrabold text-blue-900 text-center mb-2">
               Edu Genie Chat Bot
             </h2>
             <p className="text-center text-gray-800 text-lg mb-4">
               Hi! <br /> <strong>Pavan.D</strong>
             </p>
-            <Button className="bg-gray-100 hover:bg-gray-200 px-6 py-2 rounded-lg font-semibold text-black">
-              Click here to start a chat
-            </Button>
+            <Button text="Click here to start a chat" kind="secondary" />
           </div>
         </section>
       </div>

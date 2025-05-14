@@ -3,6 +3,7 @@ import Sidebar from "./ui/Sidebar";
 import Topbar from "./ui/Topbar";
 import Footer from "./ui/Footer";
 import Dashboard from "./ui/Dashboard";
+import TeacherDashboard from "./pages/TeacherDashboard";
 
 function App() {
   return (
@@ -11,7 +12,7 @@ function App() {
       <div class="flex flex-col flex-1 bg-white-50">
         <Topbar />
         <main class="p-6 overflow-y-auto">
-          <Dashboard />
+          <TeacherDashboard />
         </main>
         <Footer />
       </div>

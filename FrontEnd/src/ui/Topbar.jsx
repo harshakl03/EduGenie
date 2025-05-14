@@ -14,7 +14,6 @@ export default function Topbar() {
     </header>
   );
 }
-<<<<<<< HEAD
 
 // Modular UserInfo component
 function UserInfo({ name, role, imgSrc }) {
@@ -32,5 +31,3 @@ function UserInfo({ name, role, imgSrc }) {
     </div>
   );
 }
-=======
->>>>>>> origin/main

@@ -9,6 +9,16 @@ export default function Button({ text, type, kind }) {
       </button>
     );
 
+  if (kind == "secondary")
+    return (
+      <button
+        type={type}
+        className="bg-[#0D1B4C] text-white text-lg px-10 py-2 rounded-xl font-semibold hover:bg-blue-700 transition"
+      >
+        {text}
+      </button>
+    );
+
   return (
     <button
       type={type}

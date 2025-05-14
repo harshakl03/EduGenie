@@ -1,4 +1,7 @@
+import { useNavigate } from "react-router";
+
 export default function Register() {
+  const navigate = useNavigate();
   return (
     <div className="flex flex-col md:flex-row h-screen w-full bg-white">
       {/* Right Section - Image (on top for mobile) */}
@@ -13,7 +16,10 @@ export default function Register() {
         <p className="text-[#1A237E] text-lg mb-8">Choose your login option</p>
 
         {/* Student Button */}
-        <button className="w-full max-w-sm bg-[#0D1B4C] text-white text-left px-6 py-4 rounded-lg mb-4 shadow hover:bg-[#1A237E] transition">
+        <button
+          className="w-full max-w-sm bg-[#0D1B4C] text-white text-left px-6 py-4 rounded-lg mb-4 shadow hover:bg-[#1A237E] transition hover:cursor-pointer"
+          onClick={() => navigate("/register/student")}
+        >
           <div className="flex justify-between items-center">
             <div>
               <p className="text-lg font-semibold">Student</p>
@@ -26,7 +32,10 @@ export default function Register() {
         </button>
 
         {/* Teacher Button */}
-        <button className="w-full max-w-sm bg-[#F5F7FA] text-[#0D1B4C] text-left px-6 py-4 rounded-lg shadow border border-[#E0E0E0] hover:bg-[#E8ECF1] transition">
+        <button
+          className="w-full max-w-sm bg-[#F5F7FA] text-[#0D1B4C] text-left px-6 py-4 rounded-lg shadow border border-[#E0E0E0] hover:bg-[#E8ECF1] transition hover:cursor-pointer"
+          onClick={() => navigate("/register/teacher")}
+        >
           <div className="flex justify-between items-center">
             <div>
               <p className="text-lg font-semibold">Teacher</p>

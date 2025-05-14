@@ -3,21 +3,12 @@ import Button from "../ui/Button";
 
 export default function TeacherDashboard() {
   const [showAllStudents, setShowAllStudents] = useState(false);
-  const [subjects, setSubjects] = useState([
-    "BDA",
-    "EDA",
-    "AI ML",
-    "ML LAB",
-    "GEN AI",
-    "Project Management",
-  ]);
+  const [subjects, setSubjects] = useState(["BDA"]);
   const [students, setStudents] = useState([
     "Pavan D",
     "Harsha K L",
     "Eshwar R",
     "Amaan M",
-    "Kushal ",
-    "Arya B V",
   ]);
 
   const addSubject = () => {
@@ -82,7 +73,7 @@ export default function TeacherDashboard() {
                 </h4>
                 <p className="text-sm text-gray-600">Class Time: 08:07 AM</p>
               </div>
-              <Button text="Mark Attendance" kind="primary" />
+              <Button text="Mark Attendance" kind="secondary" />
             </div>
           ))}
           <button
@@ -138,7 +129,7 @@ export default function TeacherDashboard() {
         {/* CHAT BOT */}
         <section className="border border-red-500 px-2 py-2 rounded-xl shadow-sm bg-white h-full">
           <div className="bg-red-100 p-6 rounded-xl flex flex-col items-center justify-between min-h-[300px]">
-            <h2 className="text-2xl font-extrabold text-blue-900 text-center mb-2">
+            <h2 className="text-4xl font-extrabold text-blue-900 text-center mb-2">
               Edu Genie Chat Bot
             </h2>
             <p className="text-center text-gray-800 text-lg mb-4">

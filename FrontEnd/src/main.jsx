@@ -2,6 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router";
 import HomePage from "../src/pages/HomePage.jsx";
+import Register from "../src/pages/Register.jsx";
 import StudentRegister from "../src/pages/StudentRegister.jsx";
 import TeacherRegister from "../src/pages/TeacherRegister.jsx";
 import Login from "../src/pages/Login.jsx";
@@ -17,22 +18,16 @@ const router = createBrowserRouter([
     element: <HomePage />,
   },
   {
-    path: "/student",
-    children: [
-      {
-        path: "register",
-        element: <StudentRegister />,
-      },
-    ],
+    path: "/register",
+    element: <Register />,
   },
   {
-    path: "/teacher",
-    children: [
-      {
-        path: "register",
-        element: <TeacherRegister />,
-      },
-    ],
+    path: "/register/student",
+    element: <StudentRegister />,
+  },
+  {
+    path: "/register/teacher",
+    element: <TeacherRegister />,
   },
   {
     path: "/login",
@@ -40,7 +35,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <TeacherDashboard />,
+    element: <Dashboard />,
   },
   {
     path: "/profile/:id",

@@ -2,31 +2,48 @@ import { LayoutDashboard, User, Bot } from "lucide-react";
 
 export default function Sidebar() {
   return (
-    <div class="w-64 bg-white border-r p-2 flex flex-col items-center">
+    <div className="w-64 bg-white/60 backdrop-blur-xl border-r p-4 flex flex-col items-center transition-all duration-300">
       {/* Logo Image */}
-      <img src="/image.png" alt="EduGenie Logo" class="w-30 h-30 mb-4 mt-4" />
+      <img
+        src="/image.png"
+        alt="EduGenie Logo"
+        className="w-24 h-24 mb-4 mt-4 object-contain"
+      />
 
       {/* Title */}
-      <div class="text-4xl text-[#1447E6] font-bold mb-8">EduGenie</div>
+      <div className="text-3xl text-[#1447E6] font-extrabold mb-8">
+        EduGenie
+      </div>
 
       {/* Navigation */}
-      <nav class="space-y-3 min-w-full">
-        <a
-          href="#"
-          class="flex items-center text-l  text-white bg-[#1C398E] gap-2 shadow-blue-500 font-medium border-2 p-2 rounded-md"
-        >
-          <LayoutDashboard class="w-8 h-5" />
-          Dashboard
-        </a>
-        <a href="#" class="flex items-center gap-2 border-2 p-2 rounded-md">
-          <User class="w-8 h-5" />
-          Profile
-        </a>
-        <a href="#" class="flex items-center gap-2 border-2 p-2 rounded-md">
-          <Bot class="w-8 h-5" />
-          Chat Bot
-        </a>
+      <nav className="space-y-3 w-full">
+        <SidebarButton
+          icon={<LayoutDashboard className="w-5 h-5" />}
+          label="Dashboard"
+          active
+        />
+        <SidebarButton icon={<User className="w-5 h-5" />} label="Profile" />
+        <SidebarButton icon={<Bot className="w-5 h-5" />} label="Chat Bot" />
       </nav>
     </div>
+  );
+}
+
+// Modular Button Component
+function SidebarButton({ icon, label, active = false }) {
+  return (
+    <a
+      href="#"
+      className={`flex items-center gap-3 px-4 py-2 rounded-md border-2 transition-all duration-200 font-medium
+        ${
+          active
+            ? "bg-[#1C398E] text-white border-blue-700 shadow-md"
+            : "bg-white text-gray-800 border-gray-300 hover:bg-blue-50 hover:border-blue-400 active:bg-blue-100"
+        }
+      `}
+    >
+      {icon}
+      {label}
+    </a>
   );
 }

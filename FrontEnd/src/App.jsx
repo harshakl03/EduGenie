@@ -1,15 +1,14 @@
 // import Button form './ui/Button';
-import Sidebar from './ui/Sidebar';
-import Topbar from './ui/Topbar';
-import Footer from './ui/Footer';
-import Dashboard from './ui/Dashboard';
-
+import Sidebar from "./ui/Sidebar";
+import Topbar from "./ui/Topbar";
+import Footer from "./ui/Footer";
+import Dashboard from "./ui/Dashboard";
 
 function App() {
   return (
     <div class="flex h-screen bg-gray-50">
       <Sidebar />
-      <div class="flex flex-col flex-1 bg-blue-50">
+      <div class="flex flex-col flex-1 bg-white-50">
         <Topbar />
         <main class="p-6 overflow-y-auto">
           <Dashboard />
@@ -20,4 +19,4 @@ function App() {
   );
 }
 
-export default App
+export default App;

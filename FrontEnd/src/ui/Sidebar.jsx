@@ -11,7 +11,7 @@ export default function Sidebar() {
       />
 
       {/* Title */}
-      <div className="text-3xl text-[#1447E6] font-extrabold mb-8">
+      <div className="text-4xl text-[#0B235E] font-extrabold mb-8">
         EduGenie
       </div>
 

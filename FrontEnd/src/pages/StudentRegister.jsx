@@ -18,126 +18,61 @@ export default function StudentRegistration() {
           Welcome to Edu Genie
         </h1>
 
-        <form className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-3xl">
+        <form className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-3xl">
           <div>
-            <label className="block text-[#1A237E] font-medium mb-1">
-              Full Name
-            </label>
-            <input
-              type="text"
-              placeholder="Pavan.D"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg"
-            />
+            <Field text="Full Name" type="text" placeholder="Pavan.D" />
           </div>
           <div>
-            <label className="block text-[#1A237E] font-medium mb-1">
-              Username
-            </label>
-            <input
-              type="text"
-              placeholder="@pav6n"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg"
-            />
-          </div>
-
-          <div>
-            <label className="block text-[#1A237E] font-medium mb-1">DOB</label>
-            <input
-              type="date"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-500"
-            />
+            <Field text="Username" type="text" placeholder="@pav6n" />
           </div>
           <div>
-            <label className="block text-[#1A237E] font-medium mb-1">
-              Password
-            </label>
-            <input
+            <Field text="DOB" type="date" />
+          </div>
+          <div>
+            <Field
+              text="Password"
               type="password"
               placeholder="at least 8 characters"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg"
-            />
-          </div>
-
-          <div>
-            <label className="block text-[#1A237E] font-medium mb-1">
-              Course
-            </label>
-            <input
-              type="text"
-              placeholder="ex. Data Science"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg"
             />
           </div>
           <div>
-            <label className="block text-[#1A237E] font-medium mb-1">
-              Confirm Password
-            </label>
-            <input
+            <Field type="text" text="Course" placeholder="ex. Data Science" />
+          </div>
+          <div>
+            <Field
+              text="Confirm Password"
               type="password"
               placeholder="at least 8 characters"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg"
             />
           </div>
-
           <div>
-            <label className="block text-[#1A237E] font-medium mb-1">
-              Phone Number
-            </label>
-            <input
+            <Field
+              text="Phone Number"
               type="text"
               placeholder="ex. +91 2345678912"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg"
             />
           </div>
           <div>
-            <label className="block text-[#1A237E] font-medium mb-1">
-              Address
-            </label>
-            <input
+            <Field
+              text="Address"
               type="text"
               placeholder="ex. Door No. 123...."
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg"
-            />
-          </div>
-
-          <div>
-            <label className="block text-[#1A237E] font-medium mb-1">
-              City
-            </label>
-            <input
-              type="text"
-              placeholder="Bangalore"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg"
             />
           </div>
           <div>
-            <label className="block text-[#1A237E] font-medium mb-1">
-              State
-            </label>
-            <input
-              type="text"
-              placeholder="karnataka"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg"
-            />
+            <Field text="City" type="text" placeholder="Bangalore" />
           </div>
-
+          <div>
+            <Field text="State" type="text" placeholder="Karnataka" />
+          </div>
           <div className="md:col-span-2">
-            <label className="block text-[#1A237E] font-medium mb-1">
-              Country
-            </label>
-            <input
-              type="text"
-              placeholder="India"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg"
-            />
+            <Field text="Country" type="text" placeholder="India" />
           </div>
-
           <div className="md:col-span-2">
             <Button text="Create an account" type="primary" />
           </div>
-
           <div className="md:col-span-2 text-center text-sm">
-            Already have an account?{" "}
+            Already have an account?
             <a href="#" className="text-blue-700 hover:underline">
               Login
             </a>

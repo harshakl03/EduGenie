@@ -19,12 +19,18 @@ export default function LoginPage() {
         </h2>
 
         <form className="w-full max-w-sm">
-          <Field type="email" placeholder="Example@email.com" text="Email" />
+          <Field
+            type="email"
+            placeholder="Example@email.com"
+            text="Email"
+            to="login"
+          />
 
           <Field
             type="password"
             placeholder="at least 8 characters"
             text="Password"
+            to="login"
           />
 
           <div className="flex justify-end mb-6">

@@ -37,7 +37,7 @@ export default function TeacherDashboard() {
   const dates = getDates();
 
   return (
-    <div className="p-6 bg-white max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div className="p-6 bg-white-50 max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
       {/* LEFT SIDE: ATTENDANCE SECTION */}
       <div className="flex flex-col gap-8">
         {/* DATES */}

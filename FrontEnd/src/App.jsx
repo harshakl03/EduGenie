@@ -1,6 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router";
 import HomePage from "../src/pages/HomePage.jsx";
-import Register from "../src/pages/Register.jsx";
 import StudentRegister from "../src/pages/StudentRegister.jsx";
 import TeacherRegister from "../src/pages/TeacherRegister.jsx";
 import Login from "../src/pages/Login.jsx";
@@ -10,6 +9,8 @@ import StudentChatbot from "../src/pages/StudentChatbot.jsx";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "react-hot-toast";
+import UserRoutesProtector from "./features/Protectors/UserRoutesProtector.jsx";
+import AuthRoutesProtector from "./features/Protectors/AuthRoutesProtector.jsx";
 
 const router = createBrowserRouter([
   {
@@ -17,32 +18,45 @@ const router = createBrowserRouter([
     element: <HomePage />,
   },
   {
-    path: "/register",
-    element: <Register />,
+    path: "/auth",
+    element: <AuthRoutesProtector />,
+    children: [
+      {
+        path: "login",
+        element: <Login />,
+      },
+      {
+        path: "register",
+        children: [
+          {
+            path: "student",
+            element: <StudentRegister />,
+          },
+          {
+            path: "teacher",
+            element: <TeacherRegister />,
+          },
+        ],
+      },
+    ],
   },
   {
-    path: "/register/student",
-    element: <StudentRegister />,
-  },
-  {
-    path: "/register/teacher",
-    element: <TeacherRegister />,
-  },
-  {
-    path: "/login",
-    element: <Login />,
-  },
-  {
-    path: "/dashboard",
-    element: <Dashboard />,
-  },
-  {
-    path: "/profile/:id",
-    element: <Profile />,
-  },
-  {
-    path: "/studentChatbot",
-    element: <StudentChatbot />,
+    path: "/user",
+    element: <UserRoutesProtector />,
+    children: [
+      {
+        path: "dashboard",
+        element: <Dashboard />,
+      },
+      {
+        path: "profile/:id",
+        element: <Profile />,
+      },
+      {
+        path: "studentChatbot",
+        element: <StudentChatbot />,
+      },
+    ],
   },
 ]);
 

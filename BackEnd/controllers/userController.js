@@ -29,16 +29,35 @@ const createUser = async (username, password, level, role) => {
   }
 };
 
+const secret = async (req, res) => {
+  const token = req.cookies.user_token;
+  if (!token)
+    return res.status(401).json({
+      error: 401,
+      message: "Unauthorized: You don't have access to this",
+    });
+  const decode = jwt.verify(token, ENV.JWT_SECRET);
+  return res.status(200).json({
+    username: decode.username,
+    role: decode.role,
+    level: decode.level,
+  });
+};
+
 const login = async (req, res) => {
   try {
     const { username, password } = req.body;
-    
+
     const UserRecord = await User.findOne({ username });
 
-    if (!UserRecord) return res.status(401).json({error:401, message: "User not found" });
+    if (!UserRecord)
+      return res.status(401).json({ error: 401, message: "User not found" });
 
     const match = await bcrypt.compare(password, UserRecord.password);
-    if (!match) return res.status(401).json({error:401, message: "Invalid Credentials" });
+    if (!match)
+      return res
+        .status(401)
+        .json({ error: 401, message: "Invalid Credentials" });
 
     const token = jwt.sign(
       {
@@ -80,4 +99,4 @@ const isLoggedIn = async (username, token) => {
   return decode.level;
 };
 
-module.exports = { isExisting, createUser, login, isLoggedIn };
+module.exports = { isExisting, createUser, login, isLoggedIn, secret };

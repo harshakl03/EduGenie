@@ -4,8 +4,10 @@ const router = express.Router();
 const { createStudent } = require("../controllers/studentController");
 const { createTeacher } = require("../controllers/teacherController");
 const { login } = require("../controllers/userController");
+const { secret } = require("../controllers/userController");
 
 router.post("/login", login);
+router.get("/secret", secret);
 router.post("/registerStudent", createStudent);
 router.post("/registerTeacher", createTeacher);
 

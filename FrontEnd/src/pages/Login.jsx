@@ -1,20 +1,28 @@
 import Button from "../ui/Button";
 import Field from "../ui/Field";
+import PageLoader from "../ui/PageLoader";
 import { useForm } from "react-hook-form";
 import useLogin from "../features/Login/useLogin";
+import { Navigate } from "react-router";
 
 export default function LoginPage() {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
+    setValue,
   } = useForm();
   const { login, isLoading } = useLogin();
   const onSubmit = (data) => {
-    login(data);
+    login(data, {
+      onSettled: () => {
+        setValue("username", "");
+        setValue("password", "");
+      },
+    });
   };
 
+  if (isLoading) return <PageLoader type="read" />;
   return (
     <div className="flex flex-col md:flex-row h-screen w-full bg-white">
       {/* Image Section (Top on mobile, right on desktop) */}
@@ -35,7 +43,7 @@ export default function LoginPage() {
           <Field
             type="text"
             placeholder="@pav6n"
-            text="Email"
+            text="Username"
             to="login"
             register={register}
             variable="username"

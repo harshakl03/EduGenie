@@ -1,6 +1,7 @@
 import Button from "../ui/Button";
 import Field from "../ui/Field";
 import { useForm } from "react-hook-form";
+import useLogin from "../features/Login/useLogin";
 
 export default function LoginPage() {
   const {
@@ -9,7 +10,10 @@ export default function LoginPage() {
     watch,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const { login, isLoading } = useLogin();
+  const onSubmit = (data) => {
+    login(data);
+  };
 
   return (
     <div className="flex flex-col md:flex-row h-screen w-full bg-white">

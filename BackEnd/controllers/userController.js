@@ -32,12 +32,13 @@ const createUser = async (username, password, level, role) => {
 const login = async (req, res) => {
   try {
     const { username, password } = req.body;
+    
     const UserRecord = await User.findOne({ username });
 
-    if (!UserRecord) return res.status(404).json({ message: "User not found" });
+    if (!UserRecord) return res.status(401).json({error:401, message: "User not found" });
 
     const match = await bcrypt.compare(password, UserRecord.password);
-    if (!match) return res.status(401).json({ message: "Invalid Credentials" });
+    if (!match) return res.status(401).json({error:401, message: "Invalid Credentials" });
 
     const token = jwt.sign(
       {

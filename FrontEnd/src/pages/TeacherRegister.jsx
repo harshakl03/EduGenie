@@ -10,7 +10,6 @@ export default function TeacherRegistration() {
     formState: { errors },
   } = useForm();
   const password = watch("password");
-  const message = "this field is required";
   const onSubmit = (data) => console.log(data);
   return (
     <div className="flex flex-col md:flex-row h-full min-h-screen w-full bg-white">

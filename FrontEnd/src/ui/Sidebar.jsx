@@ -5,7 +5,7 @@ import useLoginData from "../features/Login/useLoginData";
 import PageLoader from "./PageLoader";
 
 export default function Sidebar() {
-  const [activeTab, setActiveTab] = useState("dashboard");
+  const [activeTab, setActiveTab] = useState("Dashboard");
   const navigate = useNavigate();
   const { data, isLoading } = useLoginData();
 

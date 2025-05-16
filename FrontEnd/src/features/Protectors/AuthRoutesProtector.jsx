@@ -5,7 +5,7 @@ import PageLoader from "../../ui/PageLoader";
 function AuthRoutesProtector() {
   const { data, isLoading } = useLoginData();
   if (isLoading) return <PageLoader />;
-  if (data.error) return <Outlet />;
+  if (data?.error) return <Outlet />;
   return <Navigate to="/user/dashboard" />;
 }
 

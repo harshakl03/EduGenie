@@ -87,6 +87,15 @@ const login = async (req, res) => {
   }
 };
 
+const logOut = async (req, res) => {
+  res.clearCookie("user_token", {
+    httpOnly: true,
+    secure: ENV.NODE_ENV === "production",
+    sameSite: "strict",
+  });
+  return res.status(200).json({ message: "Logged out successfully" });
+};
+
 const isLoggedIn = async (username, token) => {
   if (!token) {
     return -1;
@@ -99,4 +108,4 @@ const isLoggedIn = async (username, token) => {
   return decode.level;
 };
 
-module.exports = { isExisting, createUser, login, isLoggedIn, secret };
+module.exports = { isExisting, createUser, login, isLoggedIn, secret, logOut };

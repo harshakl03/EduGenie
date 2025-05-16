@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { LayoutDashboard, User, Bot } from "lucide-react";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import useLoginData from "../features/Login/useLoginData";
 import PageLoader from "./PageLoader";
 
 export default function Sidebar() {
-  const [activeTab, setActiveTab] = useState("Dashboard");
+  const location = useLocation();
+  const path = location.pathname.split("/")[2];
+  const [activeTab, setActiveTab] = useState(path);
   const navigate = useNavigate();
   const { data, isLoading } = useLoginData();
 
@@ -29,22 +31,37 @@ export default function Sidebar() {
         <SidebarButton
           icon={LayoutDashboard}
           label="Dashboard"
-          isActive={activeTab === "Dashboard"}
-          onClick={() => setActiveTab("Dashboard")}
+          isActive={activeTab === "dashboard"}
+          onClick={() => {
+            setActiveTab("dashboard");
+            navigate("/user/dashboard");
+          }}
         />
         <SidebarButton
           icon={User}
           label="Profile"
-          isActive={activeTab === "Profile"}
-          onClick={() => navigate(`/user/profile/${data.username}`)}
+          isActive={activeTab === "profile"}
+          onClick={() => {
+            setActiveTab("profile");
+            navigate(`/user/profile/${data.username}`);
+          }}
         />
         <SidebarButton
           icon={Bot}
           label="Chat Bot"
-          isActive={activeTab === "Chat Bot"}
-          onClick={() => setActiveTab("Chat Bot")}
+          isActive={activeTab === "studentChatbot"}
+          onClick={() => {
+            setActiveTab("studentChatbot");
+            navigate("/user/studentChatbot");
+          }}
         />
       </nav>
+      <button
+        onClick={() => console.log("LogOut")}
+        className="mt-auto bg-red-500 text-white w-full py-2 rounded-md font-semibold hover:bg-red-600 transition duration-200"
+      >
+        Log Out
+      </button>
     </div>
   );
 }

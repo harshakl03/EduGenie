@@ -5,7 +5,7 @@ import Lottie from "lottie-react";
 
 export default function PageLoader({ type }) {
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-white">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-white opacity-80">
       <div
         className={`${
           type === "read" ? "w-50 h-50" : "w-100 h-100"

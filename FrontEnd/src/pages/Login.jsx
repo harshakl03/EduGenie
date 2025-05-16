@@ -22,9 +22,10 @@ export default function LoginPage() {
     });
   };
 
-  if (isLoading) return <PageLoader type="read" />;
+  //if (isLoading) return <PageLoader type="read" />;
   return (
     <div className="flex flex-col md:flex-row h-screen w-full bg-white">
+      {isLoading && <PageLoader type="read" />}
       {/* Image Section (Top on mobile, right on desktop) */}
       <div className="w-full md:w-1/2 flex justify-center items-center p-6">
         <img src="/image.png" alt="EduGenie" className="w-3/4 h-auto" />

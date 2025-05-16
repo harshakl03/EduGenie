@@ -17,10 +17,10 @@ export default function Profile() {
   };
 
   return (
-    <div className="flex flex-col w-full p-6 gap-6 bg-gradient-to-br min-h-screen">
+    <div className="flex flex-col w-full p-4 gap-6 bg-gradient-to-br">
       <div className="relative w-full h-48 bg-gray-200 rounded-xl overflow-hidden shadow-md">
         <img
-          src="/profile.JPEG"
+          src="/amaan.jpg"
           alt="Banner"
           className="w-full h-full object-cover"
         />
@@ -35,7 +35,7 @@ export default function Profile() {
       <div className="relative -mt-16 w-full flex flex-col items-center">
         <div className="relative">
           <img
-            src="/profile.JPEG"
+            src="/amaan.jpg"
             alt="Profile"
             className="w-32 h-32 rounded-full border-4 border-white object-cover shadow-md"
           />

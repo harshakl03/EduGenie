@@ -12,6 +12,7 @@ const StudentSchema = new mongoose.Schema({
   },
   Phone_Number: { type: Number },
   Course: { type: "String", required: true },
+  profile_image: { type: Buffer },
   attendance: [
     {
       code: { type: String, ref: "Subject" },

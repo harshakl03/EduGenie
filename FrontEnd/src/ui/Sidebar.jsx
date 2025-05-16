@@ -1,9 +1,15 @@
 import { useState } from "react";
 import { LayoutDashboard, User, Bot } from "lucide-react";
+import { useNavigate } from "react-router";
+import useLoginData from "../features/Login/useLoginData";
+import PageLoader from "./PageLoader";
 
 export default function Sidebar() {
-  const [activeTab, setActiveTab] = useState("Dashboard");
+  const [activeTab, setActiveTab] = useState("dashboard");
+  const navigate = useNavigate();
+  const { data, isLoading } = useLoginData();
 
+  if (isLoading) return <PageLoader type="read" />;
   return (
     <div className="w-60 bg-white backdrop-blur-xl border-r p-4 flex flex-col items-center transition-all duration-300">
       {/* Logo Image */}
@@ -30,7 +36,7 @@ export default function Sidebar() {
           icon={User}
           label="Profile"
           isActive={activeTab === "Profile"}
-          onClick={() => setActiveTab("Profile")}
+          onClick={() => navigate(`/user/profile/${data.username}`)}
         />
         <SidebarButton
           icon={Bot}

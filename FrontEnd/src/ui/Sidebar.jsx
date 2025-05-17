@@ -61,7 +61,7 @@ export default function Sidebar() {
       </nav>
       <button
         onClick={() => logout()}
-        className="mt-auto bg-red-500 text-white w-full py-2 rounded-md font-semibold hover:bg-red-600 transition duration-200"
+        className="mt-auto border-2 border-red-500 bg-red-200 text-red-600 w-full py-2 rounded-md font-semibold hover:bg-red-600 hover:text-white transition duration-200"
       >
         Log Out
       </button>

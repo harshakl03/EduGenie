@@ -7,6 +7,7 @@ const teacherRecords = [
     name: "Prathik K",
     DOB: "21-05-1981",
     Address: {
+      value: "VV Puram",
       city: "Bangalore",
       state: "Karnataka",
       country: "India",
@@ -21,6 +22,7 @@ const teacherRecords = [
     name: "Tejaswini P S",
     DOB: "28-01-1975",
     Address: {
+      value: "Rajajinagar",
       city: "Bangalore",
       state: "Karnataka",
       country: "India",

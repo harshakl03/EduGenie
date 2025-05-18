@@ -6,6 +6,7 @@ const StudentSchema = new mongoose.Schema({
   DOB: { type: String },
   Age: { type: Number },
   Address: {
+    value: { type: String, required: true },
     city: { type: String, required: true },
     state: { type: String, required: true },
     country: { type: String, required: true },

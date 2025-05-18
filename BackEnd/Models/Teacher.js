@@ -5,6 +5,7 @@ const TeacherSchema = new mongoose.Schema({
   name: { type: String },
   DOB: { type: String },
   Address: {
+    value: { type: String, required: true },
     city: { type: String, required: true },
     state: { type: String, required: true },
     country: { type: String, required: true },

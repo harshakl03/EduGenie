@@ -12,6 +12,7 @@ const studentRecords = [
     DOB: "03-11-2004",
     Age: 20,
     Address: {
+      value: "3, 4th D Cross, Avalahalli, New Extension, Mysore Road",
       city: "Bangalore",
       state: "Karnataka",
       country: "India",
@@ -33,6 +34,7 @@ const studentRecords = [
     DOB: "27-08-2004",
     Age: 20,
     Address: {
+      value: "#712, 4th Cross, Upkar Layout Near RTO Office, Bangalore 560091",
       city: "Bangalore",
       state: "Karnataka",
       country: "India",
@@ -48,6 +50,7 @@ const studentRecords = [
     DOB: "24-08-2004",
     Age: 20,
     Address: {
+      value: "#123, ABC Cross, DEF area",
       city: "Bangalore",
       state: "Karnataka",
       country: "India",
@@ -67,6 +70,7 @@ const studentRecords = [
     DOB: "22-06-2004",
     Age: 20,
     Address: {
+      value: "Mahalakshmi Layout",
       city: "Bangalore",
       state: "Karnataka",
       country: "India",

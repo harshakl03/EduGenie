@@ -14,7 +14,7 @@ export async function authenticateUser({ username, password }) {
   return data;
 }
 
-export async function apiRegisterStudent(Userdata){
+export async function apiRegisterStudent(Userdata) {
   const res = await fetch("http://localhost:3000/api/user/registerStudent", {
     method: "POST",
     body: JSON.stringify(Userdata),
@@ -23,12 +23,13 @@ export async function apiRegisterStudent(Userdata){
       "Access-Control-Allow-Credentials": "true",
     },
     credentials: "include",
-  })
-  const data= await res.json();
-  if(data.error) throw new Error(data.message);
+  });
+  const data = await res.json();
+  if (data.error) throw new Error(data.message);
   return data;
 }
-export async function apiRegisterTeacher(Userdata){
+
+export async function apiRegisterTeacher(Userdata) {
   const res = await fetch("http://localhost:3000/api/user/registerTeacher ", {
     method: "POST",
     body: JSON.stringify(Userdata),
@@ -37,11 +38,12 @@ export async function apiRegisterTeacher(Userdata){
       "Access-Control-Allow-Credentials": "true",
     },
     credentials: "include",
-  })
-  const data= await res.json();
-  if(data.error) throw new Error(data.message);
+  });
+  const data = await res.json();
+  if (data.error) throw new Error(data.message);
   return data;
 }
+
 export async function fetchUser() {
   const res = await fetch("http://localhost:3000/api/user/secret", {
     credentials: "include",
@@ -51,7 +53,7 @@ export async function fetchUser() {
 }
 
 export async function logOutUser() {
-   const res = await fetch("http://localhost:3000/api/user/logout", {
+  const res = await fetch("http://localhost:3000/api/user/logout", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

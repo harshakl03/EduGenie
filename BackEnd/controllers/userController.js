@@ -1,4 +1,6 @@
 const User = require("../Models/User");
+const Student = require("../Models/Student");
+const Teacher = require("../Models/Teacher");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const ENV = require("../config/env");
@@ -42,6 +44,37 @@ const secret = async (req, res) => {
     role: decode.role,
     level: decode.level,
   });
+};
+
+const getUserData = async (req, res) => {
+  try {
+    const username = req.params.username;
+    const token = req.cookies.user_token;
+    const status = await isLoggedIn(username, token);
+    if (status == -1)
+      return res
+        .status(403)
+        .json({ message: "Unauthorized: No token provided" });
+
+    if (status == 0)
+      return res
+        .status(403)
+        .json({ message: "Unauthorized: You don't have access" });
+
+    const UserData = await User.findOne({ username });
+    if (!UserData)
+      return res
+        .status(401)
+        .json({ error: 401, message: "User doesn't exist" });
+
+    const StudentData = await Student.findById(username);
+    if (StudentData) return res.status(200).json(StudentData);
+
+    const TeacherData = await Teacher.findById(username);
+    if (TeacherData) return res.status(200).json(TeacherData);
+  } catch (err) {
+    return res.status(err.statusCode || 500).json({ error: err.message });
+  }
 };
 
 const login = async (req, res) => {
@@ -108,4 +141,12 @@ const isLoggedIn = async (username, token) => {
   return decode.level;
 };
 
-module.exports = { isExisting, createUser, login, isLoggedIn, secret, logOut };
+module.exports = {
+  isExisting,
+  createUser,
+  login,
+  isLoggedIn,
+  secret,
+  logOut,
+  getUserData,
+};

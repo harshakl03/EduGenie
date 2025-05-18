@@ -47,14 +47,14 @@ export default function Profile() {
           />
         </div>
         <div className="mt-4 flex flex-col md:flex-row items-center gap-4 text-center md:text-left">
-          <div>
+          <div className="flex flex-col justify-center items-center">
             <h2 className="text-2xl font-bold">Pavan.D</h2>
             <p className="text-sm text-gray-600">Data Science</p>
           </div>
-          <div className="flex flex-col md:ml-6">
+          {/* <div className="flex flex-col md:ml-6">
             <p className="text-2xl font-bold">Year 3</p>
             <p className="text-sm text-gray-600">1BI22CD030</p>
-          </div>
+          </div> */}
         </div>
       </div>
 
@@ -64,11 +64,11 @@ export default function Profile() {
         </h3>
         <div className="grid grid-cols-2 gap-4 text-lg">
           <div>
-            <span className="font-medium text-xl">Name:</span> Pavan.D
+            <span className="font-medium text-xl">First Name:</span> Pavan
           </div>
-          <div>
+          {/* <div>
             <span className="font-medium text-xl">Gender:</span> Male
-          </div>
+          </div> */}
           <div>
             <span className="font-medium text-xl">Last Name:</span> D
           </div>
@@ -82,20 +82,20 @@ export default function Profile() {
           <div>
             <span className="font-medium text-xl">Course:</span> Data Science
           </div>
-          <div className="col-span-2">
+          {/* <div className="col-span-2">
             <span className="font-medium">College:</span> Bangalore Institute of
             Technology
-          </div>
+          </div> */}
         </div>
 
         <h3 className="text-2xl font-semibold border-b pb-2 mt-6 mb-4 text-[#0D1B4C]">
           Contact
         </h3>
         <div className="grid grid-cols-2 gap-4 text-lg">
-          <div>
+          {/* <div>
             <span className="font-medium text-xl">Email:</span>{" "}
             pavan.radapa@gmail.com
-          </div>
+          </div> */}
           <div>
             <span className="font-medium text-xl">Mobile Number:</span>{" "}
             7204163730

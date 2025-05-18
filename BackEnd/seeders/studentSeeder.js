@@ -3,7 +3,7 @@ const connectDB = require("../config/db");
 const { Binary } = require("mongodb");
 const fs = require("fs");
 
-const pavanImage = new Binary(fs.readFileSync("./images/pavan.JPG"));
+//const pavanImage = new Binary(fs.readFileSync("./images/pavan.JPG"));
 
 const studentRecords = [
   {
@@ -41,7 +41,7 @@ const studentRecords = [
     },
     Phone_Number: 7204163730,
     Course: "CSE(DS)",
-    profile_image: pavanImage,
+    //profile_image: pavanImage,
     attendance: [{ code: "BCS401" }, { code: "BDSL456C" }, { code: "BAD515B" }],
   },
   {

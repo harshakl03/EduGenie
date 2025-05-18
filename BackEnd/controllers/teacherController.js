@@ -18,7 +18,7 @@ const createTeacher = async (req, res) => {
 
     const exists = await isExisting(username);
 
-    if (exists) return res.status(401).json({ message: "User already exists" });
+    if (exists) return res.status(401).json({ error:401,message: "User already exists" });
 
     const newTeacher = new Teacher({
       _id: username,

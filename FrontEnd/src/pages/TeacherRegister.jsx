@@ -1,6 +1,7 @@
 import Button from "../ui/Button";
 import { useForm } from "react-hook-form";
 import Field from "../ui/Field";
+import useTeacherRegister from "../features/Register/useTeacherRegister";
 
 export default function TeacherRegistration() {
   const {
@@ -10,7 +11,20 @@ export default function TeacherRegistration() {
     formState: { errors },
   } = useForm();
   const password = watch("password");
-  const onSubmit = (data) => console.log(data);
+  const { registerTeacher, isLoading } = useTeacherRegister();
+  const onSubmit = (data) => {
+    const { value, city, state, country, ...rest } = data;
+    const teacherData = {
+      ...rest,
+      Address: {
+        value,
+        city,
+        state,
+        country,
+      },
+    };
+    registerTeacher(teacherData);
+  };
   return (
     <div className="flex flex-col md:flex-row h-full min-h-screen w-full bg-white">
       {/* Image Section */}
@@ -134,7 +148,7 @@ export default function TeacherRegistration() {
               text="Address"
               placeholder="ex. Door No. 123...."
               register={register}
-              variable="Address"
+              variable="value"
               errors={errors}
             />
           </div>

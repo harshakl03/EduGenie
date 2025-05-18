@@ -16,7 +16,7 @@ const createStudent = async (req, res) => {
 
     const exists = await isExisting(username);
 
-    if (exists) return res.status(401).json({ message: "User already exists" });
+    if (exists) return res.status(401).json({ error:401, message: "User already exists" });
 
     const newStudent = new Student({
       _id: username,

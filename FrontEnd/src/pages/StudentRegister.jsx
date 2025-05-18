@@ -1,3 +1,4 @@
+import useStudentRegister from "../features/Register/useStudentRegister";
 import Button from "../ui/Button";
 import Field from "../ui/Field";
 import { useForm } from "react-hook-form";
@@ -9,7 +10,20 @@ export default function StudentRegistration() {
     watch,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const { registerStudent, isLoading } = useStudentRegister();
+  const onSubmit = (data) => {
+    const { value, city, state, country, ...rest } = data;
+    const studentData = {
+      ...rest,
+      Address: {
+        value,
+        city,
+        state,
+        country,
+      },
+    };
+    registerStudent(studentData);
+  };
   const password = watch("password");
 
   return (
@@ -38,7 +52,7 @@ export default function StudentRegistration() {
               type="text"
               placeholder="Pavan.D"
               register={register}
-              variable="name"
+              variable="Name"
               errors={errors}
             />
           </div>
@@ -121,7 +135,7 @@ export default function StudentRegistration() {
               type="text"
               placeholder="ex. Door No. 123...."
               register={register}
-              variable="Address"
+              variable="value"
               errors={errors}
             />
           </div>

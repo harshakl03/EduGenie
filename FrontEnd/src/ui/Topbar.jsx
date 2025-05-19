@@ -16,7 +16,7 @@ export default function Topbar() {
 
       <div className="flex items-center gap-6">
         <NotificationBell />
-        <UserInfo name="Pavan.D" role="Student" imgSrc="/image.png" />
+        <UserInfo name="Pavan.D" role="Student" imgSrc="/pavan.png" />
       </div>
     </header>
   );

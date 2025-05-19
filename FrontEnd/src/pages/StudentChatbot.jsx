@@ -55,7 +55,7 @@ const ChatMain = () => {
       </div>
       <div className="flex flex-col items-center justify-center text-center py-12">
         <img src="/image.png" alt="Genie" className="w-35 h-35 mb-10" />
-        <h2 className="text-2xl font-semibold text-gray-800">Hi Pavan.D</h2>
+        <h2 className="text-2xl font-semibold text-gray-800">Hi Pavan D</h2>
         <p className="text-lg text-gray-600 mt-1">
           Ask Edu Genie for one step academic solution
         </p>

@@ -16,7 +16,7 @@ export default function Sidebar() {
   if (isLoading || isLoadingData) return <PageLoader type="read" />;
 
   return (
-    <div className="w-64 bg-gradient-to-b from-white to-blue-50 border-r border-blue-200 p-6 flex flex-col items-center shadow-lg ">
+    <div className="w-64 h-screen sticky top-0 bg-gradient-to-b from-white to-blue-50 border-r border-blue-200 p-6 flex flex-col items-center shadow-lg">
       {/* Logo */}
       <img
         src="/image.png"

@@ -30,7 +30,7 @@ export default function Profile() {
       {/* Banner */}
       <div className="relative w-full h-52 rounded-2xl overflow-hidden shadow-lg group">
         <img
-          src={bannerImage || "/amaan.jpg"}
+          src={bannerImage || "/edugenie.png"}
           alt="Banner"
           className="w-full h-full object-cover"
         />
@@ -51,7 +51,7 @@ export default function Profile() {
       <div className="relative -mt-20 flex flex-col items-center">
         <div className="relative group">
           <img
-            src={profileImage || "/amaan.jpg"}
+            src={profileImage || "/pavan.png"}
             alt="Profile"
             className="w-36 h-36 rounded-full border-4 border-white object-cover shadow-xl"
           />
@@ -74,7 +74,7 @@ export default function Profile() {
       </div>
 
       {/* Personal Info */}
-      <div className="bg-white rounded-2xl shadow-xl p-6 w-full max-w-6xl mx-auto border-l-8 border-[#0D1B4C]">
+      <div className="bg-white rounded-2xl shadow-xl p-6 w-full max-w-6xl mx-auto border-l-8 border-[#1C398E]">
         <h3 className="text-2xl font-bold border-b pb-3 mb-5 text-[#0D1B4C]">
           Personal Information
         </h3>

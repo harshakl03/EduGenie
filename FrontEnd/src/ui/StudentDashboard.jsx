@@ -4,14 +4,14 @@ import Button from "./Button";
 export default function Dashboard() {
   const navigate = useNavigate();
   return (
-    <div className="space-y-6 p-3 bg-white-50">
+    <div className="space-y-6 px-15 py-10 bg-[#F3F8FF]">
       {/* Chat Bot Card */}
-      <div className="border p-1 border-red-200 rounded-xl shadow-sm">
-        <div className="bg-red-100 p-4 rounded-xl min-h-[220px] flex flex-col justify-between">
-          <h2 className="text-3xl font-extrabold text-center text-blue-900 mb-4">
+      <div className="border p-1 border-red-600 rounded-xl shadow-sm">
+        <div className="bg-red-100 p-4  rounded-xl min-h-[300px] flex flex-col justify-between">
+          <h2 className="text-4xl font-extrabold text-center text-blue-900 mb-4">
             Edu Genie Chat Bot
           </h2>
-          <p className="text-center text-lg text-gray-800 mb-2">
+          <p className="text-center text-xl text-gray-800 mb-2">
             Hi! <br /> <strong>Pavan.D</strong>
           </p>
           <div className="flex justify-center">

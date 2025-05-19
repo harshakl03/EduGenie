@@ -4,7 +4,7 @@ import Topbar from "./Topbar";
 
 function AppLayout({ children, isFooter }) {
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="flex min-h-screen bg-[#F3F8FF]">
       <Sidebar />
       <div className="flex flex-col flex-1 bg-white-50 min-h-screen">
         <Topbar />

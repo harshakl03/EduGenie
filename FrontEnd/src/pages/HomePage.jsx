@@ -3,7 +3,7 @@ import { useNavigate } from "react-router";
 export default function HomePage() {
   const navigate = useNavigate();
   return (
-    <div className="flex flex-col md:flex-row h-screen w-full bg-white">
+    <div className="flex flex-col md:flex-row h-screen w-full bg-blue-100">
       {/* Right Section - Image (on top for mobile) */}
       <div className="w-full ml-30 md:w-1/2 flex justify-between items-center p-6">
         {/* Replace this with your genie image */}

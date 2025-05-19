@@ -6,7 +6,7 @@ export default function Dashboard() {
   return (
     <div className="space-y-6 p-3 bg-white-50">
       {/* Chat Bot Card */}
-      <div className="border p-2 border-red-300 rounded-xl shadow-sm">
+      <div className="border p-1 border-red-200 rounded-xl shadow-sm">
         <div className="bg-red-100 p-4 rounded-xl min-h-[220px] flex flex-col justify-between">
           <h2 className="text-3xl font-extrabold text-center text-blue-900 mb-4">
             Edu Genie Chat Bot
@@ -17,7 +17,10 @@ export default function Dashboard() {
           <div className="flex justify-center">
             <Button
               text="Click here to start a chat"
-              onClick={() => navigate("/user/studentChatbot")}
+              onClick={() => {
+                navigate("/user/studentChatbot");
+                window.location.reload();
+              }}
             />
           </div>
         </div>
@@ -26,9 +29,9 @@ export default function Dashboard() {
       {/* Upload Document Card */}
       <button
         onClick={() => console.log("Upload button clicked")}
-        className="w-full border border-yellow-400 rounded-xl p-2 transition hover:shadow-md active:scale-[0.98]"
+        className="w-full border border-blue-600 rounded-xl p-1 transition hover:shadow-md active:scale-[0.98]"
       >
-        <div className="bg-yellow-100 border border-yellow-300  p-4 rounded-lg flex flex-col items-center justify-between gap-2 text-lg font-medium text-gray-800 min-h-[100px]">
+        <div className="bg-blue-100 border border-blue-100  p-4 rounded-lg flex flex-col items-center justify-between gap-2 text-lg font-medium text-gray-800 min-h-[100px]">
           <span className="text-3xl">↓</span>
           Upload your document
         </div>

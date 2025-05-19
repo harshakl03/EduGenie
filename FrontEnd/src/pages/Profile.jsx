@@ -24,95 +24,91 @@ export default function Profile() {
 
   if (isLoading) return <PageLoader type="show" />;
   console.log(data);
+
   return (
-    <div className="flex flex-col w-full p-4 gap-6 bg-gradient-to-br">
-      <div className="relative w-full h-48 bg-gray-200 rounded-xl overflow-hidden shadow-md">
+    <div className="flex flex-col w-full p-6 gap-8 bg-gradient-to-br  to-[#f0f4ff] min-h-screen">
+      {/* Banner */}
+      <div className="relative w-full h-52 rounded-2xl overflow-hidden shadow-lg group">
         <img
-          src="/amaan.jpg"
+          src={bannerImage || "/amaan.jpg"}
           alt="Banner"
           className="w-full h-full object-cover"
         />
-        <input
-          type="file"
-          accept="image/*"
-          className="absolute top-2 right-2 opacity-0 w-10 h-10 cursor-pointer"
-          onChange={handleBannerImageChange}
-        />
+        <div className="absolute inset-0 bg-white/30 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
+          <label className="text-black/50 text-lg font-semibold bg-white/80 px-5 py-2 rounded-lg cursor-pointer shadow">
+            Upload Banner
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={handleBannerImageChange}
+            />
+          </label>
+        </div>
       </div>
 
-      <div className="relative -mt-16 w-full flex flex-col items-center">
-        <div className="relative">
+      {/* Profile Image + Name */}
+      <div className="relative -mt-20 flex flex-col items-center">
+        <div className="relative group">
           <img
-            src="/amaan.jpg"
+            src={profileImage || "/amaan.jpg"}
             alt="Profile"
-            className="w-32 h-32 rounded-full border-4 border-white object-cover shadow-md"
+            className="w-36 h-36 rounded-full border-4 border-white object-cover shadow-xl"
           />
-          <input
-            type="file"
-            accept="image/*"
-            className="absolute bottom-0 right-0 opacity-0 w-10 h-10 cursor-pointer"
-            onChange={handleProfileImageChange}
-          />
-        </div>
-        <div className="mt-4 flex flex-col md:flex-row items-center gap-4 text-center md:text-left">
-          <div className="flex flex-col justify-center items-center">
-            <h2 className="text-2xl font-bold">{data.Name}</h2>
-            <p className="text-sm text-gray-600">{data.Course}</p>
+          <div className="absolute inset-0 bg-black/40 backdrop-blur-sm opacity-0 group-hover:opacity-100 rounded-full flex items-center justify-center transition duration-300">
+            <label className="text-black/50 text-sm font-medium px-3 py-1 bg-white/50 rounded-full cursor-pointer shadow">
+              Change
+              <input
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={handleProfileImageChange}
+              />
+            </label>
           </div>
-          {/* <div className="flex flex-col md:ml-6">
-            <p className="text-2xl font-bold">Year 3</p>
-            <p className="text-sm text-gray-600">1BI22CD030</p>
-          </div> */}
+        </div>
+        <div className="mt-4 text-center">
+          <h2 className="text-3xl font-bold text-[#0D1B4C]">{data.Name}</h2>
+          <p className="text-md text-gray-600">{data.Course}</p>
         </div>
       </div>
 
-      <div className="bg-white rounded-xl shadow-2xl p-6 w-full max-w-6xl mx-auto border-l-8 border-[#0D1B4C]">
-        <h3 className="text-2xl font-semibold border-b pb-2 mb-4 text-[#0D1B4C]">
-          Personal
+      {/* Personal Info */}
+      <div className="bg-white rounded-2xl shadow-xl p-6 w-full max-w-6xl mx-auto border-l-8 border-[#0D1B4C]">
+        <h3 className="text-2xl font-bold border-b pb-3 mb-5 text-[#0D1B4C]">
+          Personal Information
         </h3>
-        <div className="grid grid-cols-2 gap-4 text-lg">
+        <div className="grid grid-cols-2 gap-6 text-lg text-gray-700">
           <div>
-            <span className="font-medium text-xl">First Name:</span>{" "}
+            <span className="font-semibold">First Name:</span>{" "}
             {data.Name?.split(" ")[0]}
           </div>
-          {/* <div>
-            <span className="font-medium text-xl">Gender:</span> Male
-          </div> */}
           <div>
-            <span className="font-medium text-xl">Last Name:</span>{" "}
-            {data.Name?.split(" ")[1]}
+            <span className="font-semibold">Last Name:</span>{" "}
+            {data.Name?.split(" ")[1] || "-"}
           </div>
           <div>
-            <span className="font-medium text-xl">Date of Birth:</span>{" "}
-            {data.DOB}
+            <span className="font-semibold">Date of Birth:</span> {data.DOB}
           </div>
           <div>
-            <span className="font-medium text-xl">Country:</span>{" "}
-            {data.Address?.country}
+            <span className="font-semibold">Country:</span>{" "}
+            {data.Address?.country || "-"}
           </div>
-          <div>
-            <span className="font-medium text-xl">Course:</span> {data.Course}
+          <div className="col-span-2">
+            <span className="font-semibold">Course:</span> {data.Course}
           </div>
-          {/* <div className="col-span-2">
-            <span className="font-medium">College:</span> Bangalore Institute of
-            Technology
-          </div> */}
         </div>
 
-        <h3 className="text-2xl font-semibold border-b pb-2 mt-6 mb-4 text-[#0D1B4C]">
-          Contact
+        <h3 className="text-2xl font-bold border-b pb-3 mt-8 mb-5 text-[#0D1B4C]">
+          Contact Details
         </h3>
-        <div className="grid grid-cols-2 gap-4 text-lg">
-          {/* <div>
-            <span className="font-medium text-xl">Email:</span>{" "}
-            pavan.radapa@gmail.com
-          </div> */}
+        <div className="grid grid-cols-2 gap-6 text-lg text-gray-700">
           <div>
-            <span className="font-medium text-xl">Mobile Number:</span>{" "}
+            <span className="font-semibold">Mobile Number:</span>{" "}
             {data.Phone_Number}
           </div>
           <div className="col-span-2">
-            <span className="font-medium text-xl">Address:</span>{" "}
+            <span className="font-semibold">Address:</span>{" "}
             {data.Address?.value +
               ", " +
               data.Address?.city +

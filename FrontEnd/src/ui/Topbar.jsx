@@ -9,10 +9,12 @@ export default function Topbar() {
   });
 
   return (
-    <header className="sticky top-0 z-50 backdrop-blur-md bg-white/30 border-b border-white/20 shadow-md flex justify-between items-center px-4 py-3 transition-all duration-300">
-      <div className="text-lg text-gray-800 font-medium">{today}</div>
+    <header className="sticky top-0 z-50 backdrop-blur-xl bg-white/60 border-b border-blue-100 shadow flex justify-between items-center px-6 py-4">
+      <div className="text-lg font-semibold text-[#1C398E] tracking-wide">
+        {today}
+      </div>
 
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-6">
         <NotificationBell />
         <UserInfo name="Pavan.D" role="Student" imgSrc="/image.png" />
       </div>
@@ -23,10 +25,13 @@ export default function Topbar() {
 // 🔔 Bell Icon Component
 function NotificationBell() {
   return (
-    <button className="relative text-gray-700 hover:text-black transition-colors">
-      <Bell className="w-6 h-6" />
-      {/* Notification dot (optional) */}
-      <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"></span>
+    <button className="relative group transition-transform duration-200 hover:scale-105">
+      <Bell className="w-6 h-6 text-[#1C398E]" />
+      {/* Red Dot */}
+      <span className="absolute top-0 right-0 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-white animate-pulse" />
+      <div className="absolute -bottom-7 right-1 bg-black text-white text-xs px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+        Notifications
+      </div>
     </button>
   );
 }
@@ -34,15 +39,15 @@ function NotificationBell() {
 // 🧑 User Info Component
 function UserInfo({ name, role, imgSrc }) {
   return (
-    <div className="flex items-center gap-3">
-      <div className="flex flex-col items-end text-right">
-        <span className="font-semibold text-base text-gray-800">{name}</span>
-        <span className="text-sm text-gray-500">{role}</span>
+    <div className="flex items-center gap-4">
+      <div className="flex flex-col items-end">
+        <span className="text-sm text-gray-700 font-bold">{name}</span>
+        <span className="text-xs text-gray-500 tracking-wide">{role}</span>
       </div>
       <img
         src={imgSrc}
         alt="Profile"
-        className="w-10 h-10 rounded-full object-cover border border-gray-300"
+        className="w-10 h-10 rounded-full object-cover border-2 border-[#1C398E] shadow-sm"
       />
     </div>
   );

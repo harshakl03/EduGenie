@@ -1,6 +1,8 @@
+import { useNavigate } from "react-router";
 import Button from "./Button";
 
 export default function Dashboard() {
+  const navigate = useNavigate();
   return (
     <div className="space-y-6 p-3 bg-white-50">
       {/* Chat Bot Card */}
@@ -13,7 +15,10 @@ export default function Dashboard() {
             Hi! <br /> <strong>Pavan.D</strong>
           </p>
           <div className="flex justify-center">
-            <Button text="Click here to start a chat" />
+            <Button
+              text="Click here to start a chat"
+              onClick={() => navigate("/user/studentChatbot")}
+            />
           </div>
         </div>
       </div>

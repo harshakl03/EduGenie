@@ -16,16 +16,16 @@ export default function Sidebar() {
   if (isLoading || isLoadingData) return <PageLoader type="read" />;
 
   return (
-    <div className="w-60 bg-white backdrop-blur-xl border-r p-4 flex flex-col items-center transition-all duration-300">
-      {/* Logo Image */}
+    <div className="w-64 bg-gradient-to-b from-white to-blue-50 border-r border-blue-200 p-6 flex flex-col items-center shadow-lg ">
+      {/* Logo */}
       <img
         src="/image.png"
         alt="EduGenie Logo"
-        className="w-24 h-24 mb-4 mt-4 object-contain"
+        className="w-30 h-30 mb-4 object-contain"
       />
 
       {/* Title */}
-      <div className="text-3xl text-[#0B235E] font-extrabold mb-8">
+      <div className="text-3xl font-extrabold text-[#0B235E] tracking-wide mb-8">
         EduGenie
       </div>
 
@@ -59,9 +59,11 @@ export default function Sidebar() {
           }}
         />
       </nav>
+
+      {/* Logout Button */}
       <button
         onClick={() => logout()}
-        className="mt-auto border-2 border-red-500 bg-red-200 text-red-600 w-full py-2 rounded-md font-semibold hover:bg-red-600 hover:text-white transition duration-200"
+        className="mt-auto w-full py-2 px-4 rounded-lg bg-red-100 text-red-700 font-semibold border border-red-400 hover:bg-red-600 hover:text-white transition duration-200"
       >
         Log Out
       </button>
@@ -69,21 +71,27 @@ export default function Sidebar() {
   );
 }
 
-// Modular Button Component
+// Modular Sidebar Button
 function SidebarButton({ icon: Icon, label, isActive, onClick }) {
   return (
     <button
       onClick={onClick}
-      className={`flex items-center gap-3 px-4 py-2 w-full rounded-md border-2 transition-all duration-200 font-medium
+      className={`flex items-center gap-4 px-4 py-3 w-full rounded-xl transition-all duration-200 shadow-sm
         ${
           isActive
-            ? "bg-[#1C398E] text-white border-[#1C398E]"
-            : "bg-white text-[#1C398E] border-[#1C398E] hover:bg-[#1C398E] hover:text-white"
+            ? "bg-[#1C398E] text-white font-semibold shadow-md"
+            : "bg-white text-[#1C398E] hover:bg-[#1C398E]/90 hover:text-white border border-[#1C398E]"
         }
       `}
     >
-      <Icon className="w-5 h-5" />
-      {label}
+      <div
+        className={`p-2 rounded-full ${
+          isActive ? "bg-white text-[#1C398E]" : "bg-[#1C398E]/10"
+        }`}
+      >
+        <Icon className="w-5 h-5" />
+      </div>
+      <span>{label}</span>
     </button>
   );
 }

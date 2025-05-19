@@ -1,4 +1,4 @@
-export default function Button({ text, type, kind }) {
+export default function Button({ text, type, kind, onClick }) {
   if (kind === "primary")
     return (
       <button
@@ -23,6 +23,7 @@ export default function Button({ text, type, kind }) {
     <button
       type={type}
       className="bg-blue-600 text-white text-lg px-10 py-2 rounded-xl font-semibold hover:bg-blue-700 transition"
+      onClick={onClick}
     >
       {text}
     </button>

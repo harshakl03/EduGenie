@@ -55,10 +55,9 @@ const ChatMain = () => {
           setMessages((prev) => [...prev, botMessage]);
           setTypingText("");
         }
-        const response = [userMessage, botMessage];
-        console.log(response);
       };
-
+      const response = [userMessage, botMessage];
+      console.log(response);
       typeChar();
     }, 500);
 

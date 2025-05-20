@@ -29,7 +29,7 @@ export default function Profile() {
       {/* Banner */}
       <div className="relative w-full h-56 rounded-3xl overflow-hidden shadow-md group transition-all duration-300 hover:shadow-lg">
         <img
-          src={bannerImage || "/edugenie.png"}
+          src={data.profile_image}
           alt="Banner"
           className="w-full h-full object-cover"
         />
@@ -50,7 +50,7 @@ export default function Profile() {
       <div className="relative -mt-24 flex flex-col items-center">
         <div className="relative group">
           <img
-            src={profileImage || "/pavan.png"}
+            src={data.profile_image}
             alt="Profile"
             className="w-40 h-40 rounded-full border-4 border-white object-cover shadow-lg transition-all duration-300 group-hover:scale-105"
           />

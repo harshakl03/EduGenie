@@ -68,7 +68,15 @@ const getUserData = async (req, res) => {
         .json({ error: 401, message: "User doesn't exist" });
 
     const StudentData = await Student.findById(username);
-    if (StudentData) return res.status(200).json(StudentData);
+    if (StudentData) {
+      const base64Image = StudentData.profile_image.toString("base64");
+      return res.status(200).json({
+        ...StudentData.toObject(),
+        profile_image: base64Image
+          ? `data:image/jpeg;base64,${base64Image}`
+          : null,
+      });
+    }
 
     const TeacherData = await Teacher.findById(username);
     if (TeacherData) return res.status(200).json(TeacherData);

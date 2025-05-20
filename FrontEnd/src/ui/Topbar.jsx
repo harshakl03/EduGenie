@@ -1,4 +1,6 @@
 import { Bell } from "lucide-react"; // using lucide icons for clean SVGs
+import useLoginData from "../features/Login/useLoginData";
+import useUserData from "../features/User/useUserData";
 
 export default function Topbar() {
   const today = new Date().toLocaleDateString("en-US", {
@@ -38,6 +40,8 @@ function NotificationBell() {
 
 // 🧑 User Info Component
 function UserInfo({ name, role, imgSrc }) {
+  const { data: loginData, isLoading: loginLoading } = useLoginData();
+  const { data, isLoading } = useUserData(loginData.username);
   return (
     <div className="flex items-center gap-4">
       <div className="flex flex-col items-end">
@@ -45,7 +49,7 @@ function UserInfo({ name, role, imgSrc }) {
         <span className="text-xs text-gray-500 tracking-wide">{role}</span>
       </div>
       <img
-        src={imgSrc}
+        src={data.profile_image}
         alt="Profile"
         className="w-10 h-10 rounded-full object-cover border-2 border-[#1C398E] shadow-sm"
       />

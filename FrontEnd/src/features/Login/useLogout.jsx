@@ -9,7 +9,7 @@ export default function useLogout() {
   const { mutate: logout, isPending: isLoading } = useMutation({
     mutationFn: logOutUser,
     onSuccess: (data) => {
-      navigate("/");
+      navigate("/home");
       toast.success(data.message);
       query.setQueriesData(["login"], data);
     },

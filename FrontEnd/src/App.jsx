@@ -11,10 +11,15 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "react-hot-toast";
 import UserRoutesProtector from "./features/Protectors/UserRoutesProtector.jsx";
 import AuthRoutesProtector from "./features/Protectors/AuthRoutesProtector.jsx";
+import VideoPlay from "./pages/VideoPlay.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
+    element: <VideoPlay />,
+  },
+  {
+    path: "/home",
     element: <HomePage />,
   },
   {

@@ -31,7 +31,7 @@ const ChatMain = () => {
         if (index < fullText.length) {
           setTypingText((prev) => prev + fullText[index]);
           index++;
-          setTimeout(typeChar, 25); // Typing speed
+          setTimeout(typeChar, 25);
         } else {
           setIsTyping(false);
           setMessages((prev) => [...prev, { sender: "bot", text: fullText }]);
@@ -40,7 +40,7 @@ const ChatMain = () => {
       };
 
       typeChar();
-    }, 500); // Simulated server delay
+    }, 500);
   };
 
   const handleCopy = (text) => {
@@ -76,7 +76,7 @@ const ChatMain = () => {
   );
 
   const renderMessages = () => (
-    <div className="flex-1 overflow-y-auto px-6 py-4 space-y-4">
+    <div className="flex-1 overflow-y-auto px-6 py-4 space-y-6">
       {messages.map((msg, idx) => {
         const isUser = msg.sender === "user";
         const isBot = msg.sender === "bot";
@@ -84,45 +84,61 @@ const ChatMain = () => {
         return (
           <div
             key={idx}
-            className={`flex ${isUser ? "justify-end" : "justify-start"}`}
+            className={`w-full flex ${
+              isUser ? "justify-end" : "justify-start"
+            }`}
           >
             <div
-              className={`relative max-w-[75%] p-4 rounded-2xl border shadow ${
+              className={`text-base ${
                 isUser
-                  ? "bg-blue-100 border-blue-200"
-                  : "bg-white border-gray-300"
+                  ? "text-blue-900 font-semibold text-right"
+                  : "text-gray-900 text-left"
               }`}
             >
-              <p className="text-gray-800 whitespace-pre-line">{msg.text}</p>
-              {isBot && (
-                <div className="mt-2 flex gap-2 justify-end text-gray-500 text-sm">
-                  <button
-                    onClick={() => handleCopy(msg.text)}
-                    className="hover:text-blue-600 flex items-center gap-1"
-                  >
-                    <Copy size={14} /> Copy
-                  </button>
-                  <button
-                    onClick={() => handleShare(msg.text)}
-                    className="hover:text-blue-600 flex items-center gap-1"
-                  >
-                    <Share size={14} /> Share
-                  </button>
+              {isUser ? (
+                <div className="inline-block bg-blue-100 text-blue-900 rounded-2xl px-4 py-2 max-w-xs md:max-w-md shadow">
+                  {msg.text}
                 </div>
+              ) : (
+                <p>{msg.text}</p>
               )}
+              <div
+                className={`mt-2 flex gap-3 text-sm ${
+                  isUser ? "justify-end text-blue-500" : "text-gray-500"
+                }`}
+              >
+                <button
+                  onClick={() => handleCopy(msg.text)}
+                  className="hover:text-blue-600 flex items-center gap-1"
+                >
+                  <Copy size={14} /> Copy
+                </button>
+                <button
+                  onClick={() => handleShare(msg.text)}
+                  className="hover:text-blue-600 flex items-center gap-1"
+                >
+                  <Share size={14} /> Share
+                </button>
+              </div>
             </div>
           </div>
         );
       })}
 
-      {/* Typing effect with gradient text in matching bubble */}
+      {/* Typing animation effect */}
       {isTyping && (
         <div className="flex justify-start">
-          <div className="relative max-w-[75%] min-h-[56px] p-4 rounded-2xl border border-blue-300 shadow bg-white">
-            <p className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 animate-gradient-typing text-base font-medium whitespace-pre-line">
+          {typingText ? (
+            <p className="text-left text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 animate-gradient-typing text-base font-medium whitespace-pre-line">
               {typingText}
             </p>
-          </div>
+          ) : (
+            <div className="flex items-center space-x-2 h-6">
+              <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce [animation-delay:0s]" />
+              <div className="w-2 h-2 bg-purple-500 rounded-full animate-bounce [animation-delay:0.2s]" />
+              <div className="w-2 h-2 bg-pink-500 rounded-full animate-bounce [animation-delay:0.4s]" />
+            </div>
+          )}
         </div>
       )}
 
@@ -139,24 +155,26 @@ const ChatMain = () => {
           </div>
         </div>
 
-        <div className="px-6 py-5 border-t bg-white/80 backdrop-blur-md">
-          <div className="flex items-center border border-blue-300 rounded-xl px-4 py-3 bg-white shadow-sm">
-            <input
-              type="text"
-              placeholder="Ask Edu Genie"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && handleSend()}
-              className="flex-1 text-sm bg-transparent focus:outline-none"
-            />
-            <button
-              onClick={handleSend}
-              className="text-blue-600 hover:text-blue-800 p-2"
-            >
-              <Send size={18} />
-            </button>
+        {!isTyping && (
+          <div className="px-6 py-5 border-t bg-white/80 backdrop-blur-md">
+            <div className="flex items-center border border-blue-300 rounded-xl px-4 py-3 bg-white shadow-sm">
+              <input
+                type="text"
+                placeholder="Ask Edu Genie"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && handleSend()}
+                className="flex-1 text-sm bg-transparent focus:outline-none"
+              />
+              <button
+                onClick={handleSend}
+                className="text-blue-600 hover:text-blue-800 p-2"
+              >
+                <Send size={18} />
+              </button>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

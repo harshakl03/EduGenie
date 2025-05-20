@@ -9,6 +9,8 @@ export default function Topbar() {
     day: "numeric",
     year: "numeric",
   });
+  const { data: loginData, isLoading: loginLoading } = useLoginData();
+  const { data, isLoading } = useUserData(loginData.username);
 
   return (
     <header className="sticky top-0 z-50 backdrop-blur-xl bg-white/60 border-b border-blue-100 shadow flex justify-between items-center px-6 py-4">
@@ -18,7 +20,11 @@ export default function Topbar() {
 
       <div className="flex items-center gap-6">
         <NotificationBell />
-        <UserInfo name="Pavan.D" role="Student" imgSrc="/pavan.png" />
+        <UserInfo
+          name={data?.Name}
+          role={data?.role}
+          imgSrc={data?.profile_image}
+        />
       </div>
     </header>
   );
@@ -40,8 +46,6 @@ function NotificationBell() {
 
 // 🧑 User Info Component
 function UserInfo({ name, role, imgSrc }) {
-  const { data: loginData, isLoading: loginLoading } = useLoginData();
-  const { data, isLoading } = useUserData(loginData.username);
   return (
     <div className="flex items-center gap-4">
       <div className="flex flex-col items-end">
@@ -49,7 +53,7 @@ function UserInfo({ name, role, imgSrc }) {
         <span className="text-xs text-gray-500 tracking-wide">{role}</span>
       </div>
       <img
-        src={data.profile_image}
+        src={imgSrc || "/profile.JPEG"}
         alt="Profile"
         className="w-10 h-10 rounded-full object-cover border-2 border-[#1C398E] shadow-sm"
       />

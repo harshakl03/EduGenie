@@ -75,11 +75,15 @@ const getUserData = async (req, res) => {
         profile_image: base64Image
           ? `data:image/jpeg;base64,${base64Image}`
           : null,
+        role: UserData.role,
       });
     }
 
     const TeacherData = await Teacher.findById(username);
-    if (TeacherData) return res.status(200).json(TeacherData);
+    if (TeacherData)
+      return res
+        .status(200)
+        .json({ ...TeacherData.toObject(), role: UserData.role });
   } catch (err) {
     return res.status(err.statusCode || 500).json({ error: err.message });
   }

@@ -128,12 +128,12 @@ const initializeStudentChatbot = async (req, res) => {
     if (status == -1)
       return res
         .status(403)
-        .json({error: 403, message: "Unauthorized: No token provided" });
+        .json({ error: 403, message: "Unauthorized: No token provided" });
 
     if (status == 0)
       return res
         .status(403)
-        .json({error: 403, message: "Unauthorized: You don't have access" });
+        .json({ error: 403, message: "Unauthorized: You don't have access" });
 
     const response = await fetch(
       `http://127.0.0.1:8000/initialize_chatbot/${username}`
@@ -148,8 +148,7 @@ const initializeStudentChatbot = async (req, res) => {
 };
 
 const queryStudentChatbot = async (req, res) => {
-  const query = req.body.query;
-  console.log(query)
+  console.log(query);
   try {
     const response = await fetch("http://127.0.0.1:8000/student_chatbot", {
       method: "POST",

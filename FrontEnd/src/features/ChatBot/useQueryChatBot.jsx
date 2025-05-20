@@ -1,5 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { queryChatBot } from "../../utils/apiChatBot";
+import toast from "react-hot-toast";
+
 export default function useQueryChatBot() {
   const { mutate: query, isPending: isLoading } = useMutation({
     mutationFn: (data) => queryChatBot(data),

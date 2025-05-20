@@ -6,7 +6,7 @@ export async function initializeChatBot(username) {
     }
   );
   const data = await res.json();
-  if (data.error) throw new error(data.message);
+  if (data.error) throw new Error(data.message);
   return data;
 }
 
@@ -14,6 +14,7 @@ export async function queryChatBot(query) {
   const res = await fetch(
     "http://localhost:3000/api/PythonScripts/studentChatbot",
     {
+      method: "POST",
       body: JSON.stringify({
         query,
       }),
@@ -25,6 +26,6 @@ export async function queryChatBot(query) {
     }
   );
   const data = await res.json();
-  if (data.error) throw new error(data.message);
+  if (data.error) throw new Error(data.message);
   return data;
 }

@@ -1,25 +1,35 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  conversations: [], // each item will be { query: '...', response: '...' }
-}
+  conversations: [],
+};
 
 export const chatSlice = createSlice({
-  name: 'chatbot',
+  name: "chatbot",
   initialState,
   reducers: {
-    addConversation: (state, action) => {
-      const { query, response } = action.payload
-      state.conversations.push({ query, response })
+    addQuery: (state, action) => {
+      const query = action.payload;
+      state.conversations.push([{ sender: "user", text: query }]);
     },
+
+    addResponse: (state, action) => {
+      const response = action.payload;
+
+      const convoToUpdate = state.conversations.find(
+        (convo) => !convo.some((msg) => msg.sender === "bot")
+      );
+
+      if (convoToUpdate) {
+        convoToUpdate.push({ sender: "bot", text: response });
+      }
+    },
+
     clearConversations: (state) => {
-      state.conversations = []
+      state.conversations = [];
     },
   },
-})
+});
 
-// Exporting action creators
-export const { addConversation, clearConversations } = chatSlice.actions
-
-// Exporting the reducer
-export default chatSlice.reducer
+export const { addQuery, addResponse, clearConversations } = chatSlice.actions;
+export default chatSlice.reducer;

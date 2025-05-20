@@ -8,13 +8,12 @@ import useLoginData from "../features/Login/useLoginData";
 import useUserData from "../features/User/useUserData";
 import useQueryChatBot from "../features/ChatBot/useQueryChatBot";
 import { useDispatch, useSelector } from "react-redux";
+import { addQuery, addResponse } from "../features/ChatBot/chatBotSlice";
 
 const ChatMain = () => {
   const chatbot = useSelector((state) => state.chatbot.conversations);
   const dispatch = useDispatch();
-  //console.log(chatbot);
-
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState(chatbot);
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [typingText, setTypingText] = useState("");
@@ -22,7 +21,7 @@ const ChatMain = () => {
   const { data: loginData, isLoading: loginLoading } = useLoginData();
   const { data, isLoading } = useUserData(loginData.username);
   const messagesEndRef = useRef(null);
-  const { query, isLoading: isQuerying } = useQueryChatBot();
+  const { query } = useQueryChatBot();
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -32,36 +31,75 @@ const ChatMain = () => {
 
   const handleSend = () => {
     if (!input.trim()) return;
-
     const userMessage = { sender: "user", text: input };
-    let botMessage;
-    setMessages((prev) => [...prev, userMessage]);
+    dispatch(addQuery(userMessage.text));
+    setMessages((prev) => [...prev, [userMessage]]);
     setInput("");
     setIsTyping(true);
     setTypingText("");
+    query(userMessage.text, {
+      onSuccess: (data) => {
+        setTimeout(() => {
+          const fullText = data?.response;
+          let index = 0;
 
-    setTimeout(() => {
-      const fullText = `Sure! Here's the answer to "${input}" 👇`;
-      let index = 0;
-
-      const typeChar = () => {
-        if (index < fullText.length) {
-          setTypingText((prev) => prev + fullText[index]);
-          index++;
-          setTimeout(typeChar, 25);
-        } else {
-          botMessage = { sender: "bot", text: fullText };
-          setIsTyping(false);
-          setMessages((prev) => [...prev, botMessage]);
-          setTypingText("");
-        }
-      };
-      const response = [userMessage, botMessage];
-      console.log(response);
-      typeChar();
-    }, 500);
-
-    query(userMessage.text);
+          const typeChar = () => {
+            if (index < fullText.length) {
+              setTypingText((prev) => prev + fullText[index]);
+              index++;
+              setTimeout(typeChar, 25);
+            } else {
+              dispatch(addResponse(data.respone));
+              setIsTyping(false);
+              setMessages((prev) => {
+                return prev.map((messageGroup, index) => {
+                  // If it's the last group and only contains the user message
+                  if (
+                    index === prev.length - 1 &&
+                    messageGroup.length === 1 &&
+                    messageGroup[0].sender === "user"
+                  ) {
+                    return [
+                      ...messageGroup,
+                      {
+                        sender: "bot",
+                        text: data.respone, // <- replace this dynamically if needed
+                      },
+                    ];
+                  }
+                  return messageGroup; // return other groups unchanged
+                });
+              });
+              setTypingText("");
+            }
+          };
+          typeChar();
+        }, 500);
+      },
+      onError: (err) => {
+        dispatch(addResponse(err.message));
+        setIsTyping(false);
+        setTypingText("");
+        setMessages((prev) => {
+          return prev.map((messageGroup, index) => {
+            if (
+              index === prev.length - 1 &&
+              messageGroup.length === 1 &&
+              messageGroup[0].sender === "user"
+            ) {
+              return [
+                ...messageGroup,
+                {
+                  sender: "bot",
+                  text: err.message,
+                },
+              ];
+            }
+            return messageGroup;
+          });
+        });
+      },
+    });
   };
 
   const handleCopy = (text) => {
@@ -100,52 +138,55 @@ const ChatMain = () => {
 
   const renderMessages = () => (
     <div className="flex-1 overflow-y-auto px-6 py-4 space-y-6">
-      {messages.map((msg, idx) => {
-        const isUser = msg.sender === "user";
-
-        return (
-          <div
-            key={idx}
-            className={`w-full flex ${
-              isUser ? "justify-end" : "justify-start"
-            }`}
-          >
-            <div
-              className={`text-base ${
-                isUser
-                  ? "text-blue-900 font-semibold text-right"
-                  : "text-gray-900 text-left"
-              }`}
-            >
-              {isUser ? (
-                <div className="inline-block bg-blue-100 text-blue-900 rounded-2xl px-4 py-2 max-w-xs md:max-w-md shadow">
-                  {msg.text}
-                </div>
-              ) : (
-                <p>{msg.text}</p>
-              )}
+      {messages.map((pair, idx) => (
+        <div key={idx} className="space-y-4">
+          {pair.map((msg, innerIdx) => {
+            const isUser = msg.sender === "user";
+            return (
               <div
-                className={`mt-2 flex gap-3 text-sm ${
-                  isUser ? "justify-end text-blue-500" : "text-gray-500"
+                key={innerIdx}
+                className={`w-full flex ${
+                  isUser ? "justify-end" : "justify-start"
                 }`}
               >
-                <button
-                  onClick={() => handleCopy(msg.text)}
-                  className="hover:text-blue-600 flex items-center gap-1"
+                <div
+                  className={`text-base ${
+                    isUser
+                      ? "text-blue-900 font-semibold text-right"
+                      : "text-gray-900 text-left"
+                  }`}
                 >
-                  <Copy size={14} /> Copy
-                </button>
-                <button
-                  onClick={() => handleShare(msg.text)}
-                  className="hover:text-blue-600 flex items-center gap-1"
-                >
-                  <Share size={14} /> Share
-                </button>
+                  {isUser ? (
+                    <div className="inline-block bg-blue-100 text-blue-900 rounded-2xl px-4 py-2 max-w-xs md:max-w-md shadow">
+                      {msg.text}
+                    </div>
+                  ) : (
+                    <p>{msg.text}</p>
+                  )}
+                  <div
+                    className={`mt-2 flex gap-3 text-sm ${
+                      isUser ? "justify-end text-blue-500" : "text-gray-500"
+                    }`}
+                  >
+                    <button
+                      onClick={() => handleCopy(msg.text)}
+                      className="hover:text-blue-600 flex items-center gap-1"
+                    >
+                      <Copy size={14} /> Copy
+                    </button>
+                    <button
+                      onClick={() => handleShare(msg.text)}
+                      className="hover:text-blue-600 flex items-center gap-1"
+                    >
+                      <Share size={14} /> Share
+                    </button>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        );
-      })}
+            );
+          })}
+        </div>
+      ))}
 
       {/* Typing animation effect */}
       {isTyping && (

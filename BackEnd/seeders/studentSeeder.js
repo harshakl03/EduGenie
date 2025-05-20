@@ -23,6 +23,7 @@ const studentRecords = [
     Phone_Number: 9353991614,
     Course: "CSE(DS)",
     profile_image: harshaImage,
+    banner_image: harshaImage,
     attendance: [
       { code: "BCS303" },
       ,
@@ -46,6 +47,7 @@ const studentRecords = [
     Phone_Number: 7204163730,
     Course: "CSE(DS)",
     profile_image: pavanImage,
+    banner_image: pavanImage,
     attendance: [{ code: "BCS401" }, { code: "BDSL456C" }, { code: "BAD515B" }],
   },
   {
@@ -62,6 +64,7 @@ const studentRecords = [
     Phone_Number: 7795023287,
     Course: "CSE(DS)",
     profile_image: amaanImage,
+    banner_image: amaanImage,
     attendance: [
       { code: "BCS303" },
       { code: "BCSL404" },
@@ -83,6 +86,7 @@ const studentRecords = [
     Phone_Number: 8105833763,
     Course: "CSE(DS)",
     profile_image: eshwarImage,
+    banner_image: eshwarImage,
     attendance: [{ code: "BCS303" }, { code: "BDSL456C" }, { code: "BAD515B" }],
   },
 ];

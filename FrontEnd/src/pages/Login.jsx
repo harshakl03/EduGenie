@@ -3,7 +3,7 @@ import Field from "../ui/Field";
 import PageLoader from "../ui/PageLoader";
 import { useForm } from "react-hook-form";
 import useLogin from "../features/Login/useLogin";
-import { Navigate } from "react-router";
+import { useNavigate } from "react-router";
 
 export default function LoginPage() {
   const {
@@ -21,6 +21,7 @@ export default function LoginPage() {
       },
     });
   };
+  const navigate = useNavigate();
 
   //if (isLoading) return <PageLoader type="read" />;
   return (
@@ -73,9 +74,12 @@ export default function LoginPage() {
           <Button text="Sign in" type="submit" kind="primary" />
           <p className="text-sm text-center text-[#1A237E] mt-6">
             Don't you have an account?{" "}
-            <a href="#" className="text-blue-700 hover:underline">
+            <span
+              className="text-blue-700 hover:underline hover:cursor-pointer"
+              onClick={() => navigate("/")}
+            >
               Sign up
-            </a>
+            </span>
           </p>
         </form>
       </div>

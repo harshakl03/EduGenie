@@ -29,7 +29,7 @@ export default function Profile() {
       {/* Banner */}
       <div className="relative w-full h-56 rounded-3xl overflow-hidden shadow-md group transition-all duration-300 hover:shadow-lg">
         <img
-          src={data.profile_image}
+          src={data.banner_image}
           alt="Banner"
           className="w-full h-full object-cover"
         />
@@ -84,7 +84,7 @@ export default function Profile() {
           </div>
           <div>
             <span className="font-semibold">Last Name:</span>{" "}
-            {data.Name?.split(" ")[1] || "-"}
+            {data.Name?.split(" ").slice(1).join(" ") || "-"}
           </div>
           <div>
             <span className="font-semibold">Date of Birth:</span> {data.DOB}

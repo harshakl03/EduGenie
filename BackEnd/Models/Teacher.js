@@ -14,6 +14,8 @@ const TeacherSchema = new mongoose.Schema({
   Designation: { type: String, required: true },
   Department: { type: String, required: true },
   Subjects_Undertaken: [{ type: String, ref: "Subject" }],
+  profile_image: { type: Buffer },
+  banner_image: { type: Buffer },
 });
 
 module.exports = mongoose.model("Teacher", TeacherSchema);

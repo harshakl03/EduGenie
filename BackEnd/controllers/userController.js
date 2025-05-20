@@ -67,23 +67,28 @@ const getUserData = async (req, res) => {
         .status(401)
         .json({ error: 401, message: "User doesn't exist" });
 
-    const StudentData = await Student.findById(username);
-    if (StudentData) {
-      const base64Image = StudentData.profile_image.toString("base64");
+    if (status == 1) {
+      const StudentData = await Student.findById(username);
+      const base64Profile = StudentData.profile_image.toString("base64");
+      const base64Banner = StudentData.banner_image.toString("base64");
       return res.status(200).json({
         ...StudentData.toObject(),
-        profile_image: base64Image
-          ? `data:image/jpeg;base64,${base64Image}`
+        profile_image: base64Profile
+          ? `data:image/jpeg;base64,${base64Profile}`
+          : null,
+        banner_image: base64Banner
+          ? `data:image/jpeg;base64,${base64Banner}`
           : null,
         role: UserData.role,
       });
     }
 
-    const TeacherData = await Teacher.findById(username);
-    if (TeacherData)
+    if (status == 2) {
+      const TeacherData = await Teacher.findById(username);
       return res
         .status(200)
         .json({ ...TeacherData.toObject(), role: UserData.role });
+    }
   } catch (err) {
     return res.status(err.statusCode || 500).json({ error: err.message });
   }

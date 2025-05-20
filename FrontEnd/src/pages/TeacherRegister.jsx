@@ -2,6 +2,8 @@ import Button from "../ui/Button";
 import { useForm } from "react-hook-form";
 import Field from "../ui/Field";
 import useTeacherRegister from "../features/Register/useTeacherRegister";
+import { useNavigate } from "react-router";
+import PageLoader from "../ui/PageLoader";
 
 export default function TeacherRegistration() {
   const {
@@ -25,6 +27,9 @@ export default function TeacherRegistration() {
     };
     registerTeacher(teacherData);
   };
+  const navigate = useNavigate();
+
+  if (isLoading) return <PageLoader type="write" />;
   return (
     <div className="flex flex-col md:flex-row h-full min-h-screen w-full bg-white">
       {/* Image Section */}
@@ -196,9 +201,12 @@ export default function TeacherRegistration() {
 
           <div className="md:col-span-2 text-center text-sm">
             Already have an account?{" "}
-            <a href="#" className="text-blue-700 hover:underline">
+            <span
+              className="text-blue-700 hover:underline pl-2 hover:cursor-pointer"
+              onClick={() => navigate("/auth/login")}
+            >
               Login
-            </a>
+            </span>
           </div>
         </form>
       </div>

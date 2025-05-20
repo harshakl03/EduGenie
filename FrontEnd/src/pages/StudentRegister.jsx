@@ -1,7 +1,9 @@
+import { useNavigate } from "react-router";
 import useStudentRegister from "../features/Register/useStudentRegister";
 import Button from "../ui/Button";
 import Field from "../ui/Field";
 import { useForm } from "react-hook-form";
+import PageLoader from "../ui/PageLoader";
 
 export default function StudentRegistration() {
   const {
@@ -25,6 +27,9 @@ export default function StudentRegistration() {
     registerStudent(studentData);
   };
   const password = watch("password");
+  const navigate = useNavigate();
+
+  if (isLoading) return <PageLoader type="write" />;
 
   return (
     <div className="flex flex-col md:flex-row h-full min-h-screen w-full bg-white">
@@ -174,9 +179,12 @@ export default function StudentRegistration() {
           </div>
           <div className="md:col-span-2 text-center text-sm">
             Already have an account?
-            <a href="#" className="text-blue-700 hover:underline">
+            <span
+              className="text-blue-700 hover:underline pl-2 hover:cursor-pointer"
+              onClick={() => navigate("/auth/login")}
+            >
               Login
-            </a>
+            </span>
           </div>
         </form>
       </div>

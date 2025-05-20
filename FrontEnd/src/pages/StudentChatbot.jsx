@@ -2,17 +2,26 @@ import React, { useState, useRef, useEffect } from "react";
 import { Copy, Send, Share } from "lucide-react";
 import toast from "react-hot-toast";
 
+import PageLoader from "../ui/PageLoader";
+
+import useLoginData from "../features/Login/useLoginData";
+import useUserData from "../features/User/useUserData";
+
 const ChatMain = () => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [typingText, setTypingText] = useState("");
 
+  const { data: loginData, isLoading: loginLoading } = useLoginData();
+  const { data, isLoading } = useUserData(loginData.username);
   const messagesEndRef = useRef(null);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, typingText]);
+
+  if (loginLoading || isLoading) return <PageLoader type="show" />;
 
   const handleSend = () => {
     if (!input.trim()) return;
@@ -67,7 +76,9 @@ const ChatMain = () => {
       </div>
       <div className="flex flex-col items-center justify-center text-center py-12">
         <img src="/image.png" alt="Genie" className="w-36 h-36 mb-10" />
-        <h2 className="text-2xl font-semibold text-gray-800">Hi Pavan D</h2>
+        <h2 className="text-2xl font-semibold text-gray-800">
+          Hi, {data?.Name}
+        </h2>
         <p className="text-lg text-gray-600 mt-1">
           Ask Edu Genie for one step academic solution
         </p>
@@ -79,7 +90,6 @@ const ChatMain = () => {
     <div className="flex-1 overflow-y-auto px-6 py-4 space-y-6">
       {messages.map((msg, idx) => {
         const isUser = msg.sender === "user";
-        const isBot = msg.sender === "bot";
 
         return (
           <div

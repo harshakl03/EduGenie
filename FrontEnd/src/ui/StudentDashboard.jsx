@@ -1,8 +1,18 @@
 import { useNavigate } from "react-router";
+
 import Button from "./Button";
+import PageLoader from "./PageLoader";
+
+import useLoginData from "../features/Login/useLoginData";
+import useUserData from "../features/User/useUserData";
 
 export default function Dashboard() {
   const navigate = useNavigate();
+
+  const { data: loginData, isLoading: loginLoading } = useLoginData();
+  const { data, isLoading } = useUserData(loginData.username);
+
+  if (loginLoading || isLoading) return <PageLoader type="show" />;
 
   return (
     <div className="space-y-10 px-8 py-10 bg-gradient-to-br to-white min-h-screen">
@@ -13,7 +23,7 @@ export default function Dashboard() {
             Edu Genie Chat Bot
           </h2>
           <p className="text-center text-xl text-gray-700 mb-4">
-            Hi! <br /> <strong className="font-semibold">Pavan.D</strong>
+            Hi! <br /> <strong className="font-semibold">{data?.Name}</strong>
           </p>
           <div className="flex justify-center">
             <Button
@@ -28,7 +38,7 @@ export default function Dashboard() {
       </div>
 
       {/* Upload Document Card */}
-      <button
+      {/* <button
         onClick={() => console.log("Upload button clicked")}
         className="w-full rounded-2xl border border-blue-300 transition hover:shadow-lg hover:scale-[1.01] active:scale-95 duration-300 ease-in-out"
       >
@@ -36,7 +46,23 @@ export default function Dashboard() {
           <span className="text-4xl animate-pulse ">📄</span>
           Upload your document
         </div>
-      </button>
+      </button> */}
+
+      <div>
+        <label htmlFor="file-upload">
+          <div className="bg-blue-200 hover:bg-blue-100 border border-blue-600 p-6 rounded-2xl flex flex-col items-center justify-center gap-2 text-lg font-medium text-blue-900 min-h-[120px] cursor-pointer transition hover:shadow-lg hover:scale-[1.01] active:scale-95 duration-300 ease-in-out">
+            <span className="text-4xl animate-pulse">📄</span>
+            Upload your document
+          </div>
+          <input
+            id="file-upload"
+            type="file"
+            accept="application/pdf"
+            onChange={() => console.log("File selected")}
+            className="hidden"
+          />
+        </label>
+      </div>
 
       {/* Right section (Uploads and Stats) */}
       <div className="grid grid-cols-3 gap-6">

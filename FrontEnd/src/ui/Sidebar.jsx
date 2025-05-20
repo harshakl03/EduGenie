@@ -21,7 +21,7 @@ export default function Sidebar() {
       <img
         src="/image.png"
         alt="EduGenie Logo"
-        className="w-30 h-30 mb-4 object-contain"
+        className="w-30 h-30 mb-4 object-contain "
       />
 
       {/* Title */}

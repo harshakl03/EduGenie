@@ -7,8 +7,13 @@ import PageLoader from "../ui/PageLoader";
 import useLoginData from "../features/Login/useLoginData";
 import useUserData from "../features/User/useUserData";
 import useQueryChatBot from "../features/ChatBot/useQueryChatBot";
+import { useDispatch, useSelector } from "react-redux";
 
 const ChatMain = () => {
+  const chatbot = useSelector((state) => state.chatbot.conversations);
+  const dispatch = useDispatch();
+  //console.log(chatbot);
+
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
@@ -29,6 +34,7 @@ const ChatMain = () => {
     if (!input.trim()) return;
 
     const userMessage = { sender: "user", text: input };
+    let botMessage;
     setMessages((prev) => [...prev, userMessage]);
     setInput("");
     setIsTyping(true);
@@ -44,10 +50,13 @@ const ChatMain = () => {
           index++;
           setTimeout(typeChar, 25);
         } else {
+          botMessage = { sender: "bot", text: fullText };
           setIsTyping(false);
-          setMessages((prev) => [...prev, { sender: "bot", text: fullText }]);
+          setMessages((prev) => [...prev, botMessage]);
           setTypingText("");
         }
+        const response = [userMessage, botMessage];
+        console.log(response);
       };
 
       typeChar();

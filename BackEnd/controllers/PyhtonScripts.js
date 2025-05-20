@@ -148,7 +148,7 @@ const initializeStudentChatbot = async (req, res) => {
 };
 
 const queryStudentChatbot = async (req, res) => {
-  console.log(query);
+  const query = req.body.query
   try {
     const response = await fetch("http://127.0.0.1:8000/student_chatbot", {
       method: "POST",

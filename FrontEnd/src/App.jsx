@@ -12,6 +12,8 @@ import { Toaster } from "react-hot-toast";
 import UserRoutesProtector from "./features/Protectors/UserRoutesProtector.jsx";
 import AuthRoutesProtector from "./features/Protectors/AuthRoutesProtector.jsx";
 import VideoPlay from "./pages/VideoPlay.jsx";
+import { store } from "./state/store";
+import { Provider } from "react-redux";
 
 const router = createBrowserRouter([
   {
@@ -70,30 +72,32 @@ const queryClient = new QueryClient();
 export default function App() {
   return (
     <div>
-      <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
-        <ReactQueryDevtools initialIsOpen={false} />
-        <Toaster
-          position="top-center"
-          gutter={12}
-          containerStyle={{ margin: "8px" }}
-          toastOptions={{
-            success: {
-              duration: 1000,
-            },
-            error: {
-              duration: 2000,
-            },
-            style: {
-              fontSize: "16px",
-              maxWidth: "500px",
-              padding: "16px 24px",
-              backgroundColor: "-var(--color-grey-0)",
-              color: "-var(--color-grey-7000)",
-            },
-          }}
-        />
-      </QueryClientProvider>
+      <Provider store={store}>
+        <QueryClientProvider client={queryClient}>
+          <RouterProvider router={router} />
+          <ReactQueryDevtools initialIsOpen={false} />
+          <Toaster
+            position="top-center"
+            gutter={12}
+            containerStyle={{ margin: "8px" }}
+            toastOptions={{
+              success: {
+                duration: 1000,
+              },
+              error: {
+                duration: 2000,
+              },
+              style: {
+                fontSize: "16px",
+                maxWidth: "500px",
+                padding: "16px 24px",
+                backgroundColor: "-var(--color-grey-0)",
+                color: "-var(--color-grey-7000)",
+              },
+            }}
+          />
+        </QueryClientProvider>
+      </Provider>
     </div>
   );
 }

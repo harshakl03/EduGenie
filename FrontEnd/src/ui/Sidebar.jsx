@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from "react-router";
 import useLoginData from "../features/Login/useLoginData";
 import PageLoader from "./PageLoader";
 import useLogout from "../features/Login/useLogout";
+import useInitialiseChatBot from "../features/ChatBot/useInitialiseChatBot";
 
 export default function Sidebar() {
   const location = useLocation();
@@ -12,6 +13,9 @@ export default function Sidebar() {
   const navigate = useNavigate();
   const { data, isLoading: isLoadingData } = useLoginData();
   const { logout, isLoading } = useLogout();
+
+  const { initializedChatBot, isLoading: loadingChatBot } =
+    useInitialiseChatBot();
 
   if (isLoading || isLoadingData) return <PageLoader type="read" />;
 
@@ -46,6 +50,7 @@ export default function Sidebar() {
           isActive={activeTab === "profile"}
           onClick={() => {
             setActiveTab("profile");
+
             navigate(`/user/profile/${data.username}`);
           }}
         />
@@ -55,7 +60,7 @@ export default function Sidebar() {
           isActive={activeTab === "studentChatbot"}
           onClick={() => {
             setActiveTab("studentChatbot");
-            navigate("/user/studentChatbot");
+            initializedChatBot(data.username);
           }}
         />
       </nav>

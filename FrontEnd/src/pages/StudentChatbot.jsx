@@ -6,6 +6,7 @@ import PageLoader from "../ui/PageLoader";
 
 import useLoginData from "../features/Login/useLoginData";
 import useUserData from "../features/User/useUserData";
+import useQueryChatBot from "../features/ChatBot/useQueryChatBot";
 
 const ChatMain = () => {
   const [messages, setMessages] = useState([]);
@@ -16,6 +17,7 @@ const ChatMain = () => {
   const { data: loginData, isLoading: loginLoading } = useLoginData();
   const { data, isLoading } = useUserData(loginData.username);
   const messagesEndRef = useRef(null);
+  const { query, isLoading: isQuerying } = useQueryChatBot();
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -50,6 +52,8 @@ const ChatMain = () => {
 
       typeChar();
     }, 500);
+
+    query(userMessage.text);
   };
 
   const handleCopy = (text) => {

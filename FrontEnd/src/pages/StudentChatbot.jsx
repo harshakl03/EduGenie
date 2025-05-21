@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
-import rehypeHighlight from "rehype-highlight"; // ⬅️ Add this at the top with other imports
+import rehypeHighlight from "rehype-highlight";
 
 import PageLoader from "../ui/PageLoader";
 
@@ -58,7 +58,6 @@ const ChatMain = () => {
               setIsTyping(false);
               setMessages((prev) => {
                 return prev.map((messageGroup, index) => {
-                  // If it's the last group and only contains the user message
                   if (
                     index === prev.length - 1 &&
                     messageGroup.length === 1 &&
@@ -68,11 +67,11 @@ const ChatMain = () => {
                       ...messageGroup,
                       {
                         sender: "bot",
-                        text: data.response, // <- replace this dynamically if needed
+                        text: data.response,
                       },
                     ];
                   }
-                  return messageGroup; // return other groups unchanged
+                  return messageGroup;
                 });
               });
               setTypingText("");
@@ -129,8 +128,8 @@ const ChatMain = () => {
           Edu Genie
         </h2>
       </div>
-      <div className="flex flex-col items-center justify-center text-center py-12">
-        <img src="/image.png" alt="Genie" className="w-36 h-36 mb-10" />
+      <div className="flex flex-col items-center justify-center text-center py-8">
+        <img src="/image.png" alt="Genie" className="w-32 h-32 mb-5" />
         <h2 className="text-2xl font-semibold text-gray-800">
           Hi, {data?.Name}
         </h2>
@@ -234,7 +233,6 @@ const ChatMain = () => {
         </div>
       ))}
 
-      {/* Typing animation effect */}
       {isTyping && (
         <div className="flex justify-start">
           {typingText ? (
@@ -260,6 +258,16 @@ const ChatMain = () => {
       <div className="w-full max-w-5xl mx-auto h-full flex flex-col rounded-3xl border-2 border-blue-400 bg-gradient-to-br from-blue-50 via-white to-blue-100 shadow-2xl overflow-hidden">
         <div className="flex-1 flex flex-col overflow-hidden">
           <div className="flex-1 overflow-auto">
+            {/* Recently Uploaded Box */}
+            <div className="flex justify-center mt-4">
+              <div className="bg-white px-6 py-3 rounded-xl shadow-md border border-blue-300 text-sm text-gray-800 font-medium">
+                📄 Recently uploaded:{" "}
+                <span className="text-blue-600 ml-1">
+                  Physics_Assignment.pdf
+                </span>
+              </div>
+            </div>
+
             {messages.length === 0 ? renderWelcome() : renderMessages()}
           </div>
         </div>

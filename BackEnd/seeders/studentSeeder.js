@@ -4,6 +4,7 @@ const { Binary } = require("mongodb");
 const fs = require("fs");
 
 const pavanImage = new Binary(fs.readFileSync("./images/pavan.png"));
+const pavanBanner = new Binary(fs.readFileSync("./images/pavan_banner.png"));
 const harshaImage = new Binary(fs.readFileSync("./images/harsha.png"));
 const amaanImage = new Binary(fs.readFileSync("./images/amaan.png"));
 const eshwarImage = new Binary(fs.readFileSync("./images/eshwar.png"));
@@ -47,7 +48,7 @@ const studentRecords = [
     Phone_Number: 7204163730,
     Course: "CSE(DS)",
     profile_image: pavanImage,
-    banner_image: pavanImage,
+    banner_image: pavanBanner,
     attendance: [{ code: "BCS401" }, { code: "BDSL456C" }, { code: "BAD515B" }],
   },
   {

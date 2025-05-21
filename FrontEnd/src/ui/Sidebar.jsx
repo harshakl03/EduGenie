@@ -72,6 +72,15 @@ export default function Sidebar() {
             navigate("/user/studentChatbot");
           }}
         />
+        <SidebarButton
+          icon={User}
+          label="About"
+          isActive={sidebar === "about"}
+          onClick={() => {
+            dispatch(moveSidebar("about"));
+            navigate("/about");
+          }}
+        />
       </nav>
 
       {/* Logout Button */}

@@ -7,7 +7,9 @@ const {
   initializeStudentChatbot,
 } = require("../controllers/PyhtonScripts");
 
-router.post("/extractData/:username", extractData);
+const upload = require("../middlewares/multer");
+
+router.post("/extractData/:username", upload.single("pdf"), extractData);
 router.get("/studentResultsById/:id", getStudentResultsById);
 router.get("/initializeStudentChatbot/:username", initializeStudentChatbot);
 router.post("/studentChatbot", queryStudentChatbot);

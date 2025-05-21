@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import toast from "react-hot-toast";
 
-const ALLOWED_STATES = ["dashboard", "profile", "studentChatbot"];
+const ALLOWED_STATES = ["dashboard", "profile", "studentChatbot", "about"];
 
 const initialState = {
   state: "dashboard",

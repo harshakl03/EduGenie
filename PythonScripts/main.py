@@ -58,24 +58,38 @@ chain = LLMChain(llm=llm, prompt=prompt, memory=memory)
 
 @app.post("/extract_data/{username}", response_model = ResultsResponse)
 def extract_data_from_pdf(username: str, student: DataExtractRequest):
-    print(student)
     pdf_path = student.pdf_path
-    doc = fitz.open(pdf_path)
+    try:
+        doc = fitz.open(pdf_path)
+    except FileNotFoundError:
+        raise HTTPException(
+            status_code=404,
+            detail="PDF file not found",
+            headers={"X-Error": "FileNotFound"},
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Failed to open PDF file: {str(e)}",
+            headers={"X-Error": "PDFReadError"},
+        )
+
     text = ""
     for page in doc:
         text += page.get_text()
-    
-    if username in text :
+
+    if username in text:
         match = re.search(r"Semester\s*:\s*(\d+)", text)
         if match:
             semester = match.group(1)
+
         pattern = re.compile(
-            r'(?P<code>B\w{2,10})\n'                                      
-            r'(?P<name>(?:[A-Z][^\n]*\n?)+?)'                              
-            r'(?P<internal>\d{1,3})\n'                                    
-            r'(?P<external>\d{1,3})\n'                                    
-            r'(?P<total>\d{1,3})\n'                                    
-            r'(?P<result>[PFWAX])',                                       
+            r'(?P<code>B\w{2,10})\n'
+            r'(?P<name>(?:[A-Z][^\n]*\n?)+?)'
+            r'(?P<internal>\d{1,3})\n'
+            r'(?P<external>\d{1,3})\n'
+            r'(?P<total>\d{1,3})\n'
+            r'(?P<result>[PFWAX])',
             re.MULTILINE
         )
 
@@ -91,8 +105,7 @@ def extract_data_from_pdf(username: str, student: DataExtractRequest):
             }
             results.append(subject_data)
 
-        return {"semester":semester, "results":results}
-    
+        return {"semester": semester, "results": results}
     else:
         raise HTTPException(
             status_code=401,

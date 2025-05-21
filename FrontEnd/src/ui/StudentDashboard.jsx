@@ -8,6 +8,8 @@ import useUserData from "../features/User/useUserData";
 import { useDispatch, useSelector } from "react-redux";
 import { moveSidebar } from "../features/SideBar/sidebarSlice";
 import useInitialiseChatBot from "../features/ChatBot/useInitialiseChatBot";
+import useUploadDocument from "../features/User/useUploadDocument";
+import useData from "../features/User/useData";
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -15,11 +17,19 @@ export default function Dashboard() {
   const chatbot = useSelector((state) => state.chatbot.conversations);
 
   const { data: loginData, isLoading: loginLoading } = useLoginData();
-  const { data, isLoading } = useUserData(loginData.username);
+  const { data: userData, isLoading } = useUserData(loginData.username);
+  const { data, isLoading: isLoadingData } = useData(loginData.username);
+  const { uploadDocument, isLoading: uploadingDocument } = useUploadDocument();
   const { initializedChatBot, isLoading: initializingChatbot } =
     useInitialiseChatBot();
 
-  if (loginLoading || isLoading || initializingChatbot)
+  if (
+    loginLoading ||
+    isLoading ||
+    initializingChatbot ||
+    uploadingDocument ||
+    isLoadingData
+  )
     return <PageLoader type="show" />;
 
   return (
@@ -31,7 +41,8 @@ export default function Dashboard() {
             Edu Genie Chat Bot
           </h2>
           <p className="text-center text-xl text-gray-700 mb-4">
-            Hi! <br /> <strong className="font-semibold">{data?.Name}</strong>
+            Hi! <br />{" "}
+            <strong className="font-semibold">{userData?.Name}</strong>
           </p>
           <div className="flex justify-center">
             <Button
@@ -64,13 +75,18 @@ export default function Dashboard() {
         <label htmlFor="file-upload">
           <div className="bg-blue-200 hover:bg-blue-100 border border-blue-600 p-6 rounded-2xl flex flex-col items-center justify-center gap-2 text-lg font-medium text-blue-900 min-h-[120px] cursor-pointer transition hover:shadow-lg hover:scale-[1.01] active:scale-95 duration-300 ease-in-out">
             <span className="text-4xl animate-pulse">📄</span>
-            Upload your document
+            {uploadingDocument ? "Uploading..." : "Upload your document"}
           </div>
           <input
             id="file-upload"
             type="file"
             accept="application/pdf"
-            onChange={() => console.log("File selected")}
+            onChange={(e) => {
+              const file = e.target.files[0];
+              if (file) {
+                uploadDocument({ username: loginData.username, file });
+              }
+            }}
             className="hidden"
           />
         </label>
@@ -83,20 +99,20 @@ export default function Dashboard() {
           <h3 className="font-bold text-lg mb-3 border-b border-white pb-1">
             Recent Uploads
           </h3>
-          <ul className="text-sm space-y-4">
-            <li>
-              <strong className="text-base">1st SEM</strong> <br />
-              <span className="text-xs text-gray-200">Today, 10:30 AM</span>
-            </li>
-            <li>
-              <strong className="text-base">2nd SEM</strong> <br />
-              <span className="text-xs text-gray-200">Today, 10:00 AM</span>
-            </li>
-            <li>
-              <strong className="text-base">3rd SEM</strong> <br />
-              <span className="text-xs text-gray-200">Yesterday, 01:00 PM</span>
-            </li>
-          </ul>
+          {data?.data?.documents_uploaded?.length === 0 ? (
+            <p className="flex justify-center items-center">
+              No files uploaded yet
+            </p>
+          ) : (
+            <ul className="text-sm space-y-4">
+              {data?.data?.documents_uploaded?.slice(-3)?.map((item) => (
+                <li>
+                  <strong className="text-base">{item.name}</strong> <br />
+                  <span className="text-xs text-gray-200">{item.date}</span>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
 
         {/* Stats Section */}
@@ -106,7 +122,7 @@ export default function Dashboard() {
               Day Streak
             </p>
             <h1 className="text-5xl font-extrabold text-yellow-900 mt-2 animate-pulse">
-              07
+              {data?.data?.dayStreak}
             </h1>
           </div>
           <div className="flex-1 bg-red-100 border border-red-600 p-6 rounded-2xl shadow flex flex-col items-center justify-center hover:scale-[1.03] transition-transform duration-300">
@@ -114,7 +130,7 @@ export default function Dashboard() {
               Documents Uploaded
             </p>
             <h1 className="text-5xl font-extrabold text-red-900 mt-2 animate-pulse">
-              10
+              {data?.data?.documents_uploaded?.length}
             </h1>
           </div>
         </div>

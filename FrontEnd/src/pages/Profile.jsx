@@ -2,10 +2,18 @@ import React, { useState } from "react";
 import useUserData from "../features/User/useUserData";
 import PageLoader from "../ui/PageLoader";
 import { useParams } from "react-router";
+import Cropper from "react-easy-crop";
+import Modal from "react-modal";
 
 export default function Profile() {
   const [profileImage, setProfileImage] = useState(null);
   const [bannerImage, setBannerImage] = useState(null);
+
+  const [cropImage, setCropImage] = useState(null);
+  const [showCropModal, setShowCropModal] = useState(false);
+  const [crop, setCrop] = useState({ x: 0, y: 0 });
+  const [zoom, setZoom] = useState(1);
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
 
   const handleProfileImageChange = (e) => {
     if (e.target.files[0]) {
@@ -15,8 +23,52 @@ export default function Profile() {
 
   const handleBannerImageChange = (e) => {
     if (e.target.files[0]) {
-      setBannerImage(URL.createObjectURL(e.target.files[0]));
+      const fileUrl = URL.createObjectURL(e.target.files[0]);
+      setCropImage(fileUrl);
+      setShowCropModal(true);
     }
+  };
+
+  const onCropComplete = (_, croppedPixels) => {
+    setCroppedAreaPixels(croppedPixels);
+  };
+
+  const handleCropDone = async () => {
+    const cropped = await getCroppedImg(cropImage, croppedAreaPixels);
+    setBannerImage(cropped);
+    setShowCropModal(false);
+  };
+
+  const getCroppedImg = (imageSrc, croppedAreaPixels) => {
+    return new Promise((resolve, reject) => {
+      const image = new Image();
+      image.src = imageSrc;
+      image.onload = () => {
+        const canvas = document.createElement("canvas");
+        canvas.width = croppedAreaPixels.width;
+        canvas.height = croppedAreaPixels.height;
+        const ctx = canvas.getContext("2d");
+
+        ctx.drawImage(
+          image,
+          croppedAreaPixels.x,
+          croppedAreaPixels.y,
+          croppedAreaPixels.width,
+          croppedAreaPixels.height,
+          0,
+          0,
+          croppedAreaPixels.width,
+          croppedAreaPixels.height
+        );
+
+        canvas.toBlob((blob) => {
+          if (!blob) return reject("Canvas is empty");
+          const fileUrl = URL.createObjectURL(blob);
+          resolve(fileUrl);
+        }, "image/jpeg");
+      };
+      image.onerror = () => reject("Image load error");
+    });
   };
 
   const { id } = useParams();
@@ -29,7 +81,7 @@ export default function Profile() {
       {/* Banner */}
       <div className="relative w-full h-56 rounded-3xl overflow-hidden shadow-md group transition-all duration-300 hover:shadow-lg">
         <img
-          src={data.banner_image}
+          src={bannerImage || data.banner_image}
           alt="Banner"
           className="w-full h-full object-cover"
         />
@@ -50,7 +102,7 @@ export default function Profile() {
       <div className="relative -mt-24 flex flex-col items-center">
         <div className="relative group">
           <img
-            src={data.profile_image}
+            src={profileImage || data.profile_image}
             alt="Profile"
             className="w-40 h-40 rounded-full border-4 border-white object-cover shadow-lg transition-all duration-300 group-hover:scale-105"
           />
@@ -116,6 +168,48 @@ export default function Profile() {
           </div>
         </div>
       </div>
+
+      {/* Cropper Modal */}
+      {showCropModal && (
+        <Modal
+          isOpen={showCropModal}
+          onRequestClose={() => setShowCropModal(false)}
+          className="fixed inset-0 flex items-center justify-center bg-black/60 z-50"
+          overlayClassName="fixed inset-0 bg-black/60"
+          ariaHideApp={false}
+        >
+          <div className="bg-white rounded-lg p-6 w-[90vw] max-w-2xl shadow-lg relative">
+            <h2 className="text-xl font-bold mb-4 text-center text-blue-900">
+              Resize Your Banner
+            </h2>
+            <div className="relative w-full h-[300px] bg-gray-200 rounded-lg overflow-hidden">
+              <Cropper
+                image={cropImage}
+                crop={crop}
+                zoom={zoom}
+                aspect={3.5}
+                onCropChange={setCrop}
+                onZoomChange={setZoom}
+                onCropComplete={onCropComplete}
+              />
+            </div>
+            <div className="mt-4 flex justify-end space-x-4">
+              <button
+                onClick={() => setShowCropModal(false)}
+                className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleCropDone}
+                className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+              >
+                Done
+              </button>
+            </div>
+          </div>
+        </Modal>
+      )}
     </div>
   );
 }

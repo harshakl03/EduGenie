@@ -9,6 +9,7 @@ import rehypeHighlight from "rehype-highlight";
 import PageLoader from "../ui/PageLoader";
 
 import useLoginData from "../features/Login/useLoginData";
+import useData from "../features/User/useData";
 import useUserData from "../features/User/useUserData";
 import useQueryChatBot from "../features/ChatBot/useQueryChatBot";
 import { useDispatch, useSelector } from "react-redux";
@@ -25,8 +26,14 @@ const ChatMain = () => {
 
   const { data: loginData, isLoading: loginLoading } = useLoginData();
   const { data, isLoading } = useUserData(loginData.username);
+  const { data: details } = useData(loginData.username);
   const messagesEndRef = useRef(null);
   const { query } = useQueryChatBot();
+  console.log(
+    details?.data?.documents_uploaded[
+      details?.data?.documents_uploaded?.length - 1
+    ]
+  );
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -259,14 +266,26 @@ const ChatMain = () => {
         <div className="flex-1 flex flex-col overflow-hidden">
           <div className="flex-1 overflow-auto">
             {/* Recently Uploaded Box */}
-            <div className="flex justify-center mt-4">
-              <div className="bg-white px-6 py-3 rounded-xl shadow-md border border-blue-300 text-sm text-gray-800 font-medium">
-                📄 Recently uploaded:{" "}
-                <span className="text-blue-600 ml-1">
-                  Physics_Assignment.pdf
-                </span>
+            {chatbot.length === 0 && (
+              <div className="flex justify-center mt-4">
+                <div className="bg-white px-6 py-3 rounded-xl shadow-md border border-blue-300 text-sm text-gray-800 font-medium">
+                  {details?.data?.documents_uploaded?.length === 0 ? (
+                    "No documents uploaded yet"
+                  ) : (
+                    <>
+                      <span>📄 Recently uploaded: </span>
+                      <span className="text-blue-600 ml-1">
+                        {
+                          details?.data?.documents_uploaded[
+                            details?.data?.documents_uploaded?.length - 1
+                          ].name
+                        }
+                      </span>
+                    </>
+                  )}
+                </div>
               </div>
-            </div>
+            )}
 
             {messages.length === 0 ? renderWelcome() : renderMessages()}
           </div>

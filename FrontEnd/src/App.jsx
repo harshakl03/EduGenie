@@ -14,6 +14,7 @@ import AuthRoutesProtector from "./features/Protectors/AuthRoutesProtector.jsx";
 import VideoPlay from "./pages/VideoPlay.jsx";
 import { store } from "./state/store";
 import { Provider } from "react-redux";
+import About from "./pages/About.jsx";
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
   {
     path: "/home",
     element: <HomePage />,
+  },
+  {
+    path: "/about",
+    element: <About />,
   },
   {
     path: "/auth",

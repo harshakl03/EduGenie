@@ -14,6 +14,7 @@ const ChatMain = () => {
   const chatbot = useSelector((state) => state.chatbot.conversations);
   const dispatch = useDispatch();
   const [messages, setMessages] = useState(chatbot);
+
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [typingText, setTypingText] = useState("");
@@ -25,7 +26,7 @@ const ChatMain = () => {
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages, typingText]);
+  }, [messages, typingText, chatbot]);
 
   if (loginLoading || isLoading) return <PageLoader type="show" />;
 
@@ -63,7 +64,7 @@ const ChatMain = () => {
                       ...messageGroup,
                       {
                         sender: "bot",
-                        text: data.respone, // <- replace this dynamically if needed
+                        text: data.response, // <- replace this dynamically if needed
                       },
                     ];
                   }

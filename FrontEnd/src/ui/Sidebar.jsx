@@ -1,21 +1,26 @@
-import { useState } from "react";
 import { LayoutDashboard, User, Bot } from "lucide-react";
 import { useLocation, useNavigate } from "react-router";
 import useLoginData from "../features/Login/useLoginData";
 import PageLoader from "./PageLoader";
 import useLogout from "../features/Login/useLogout";
 import useInitialiseChatBot from "../features/ChatBot/useInitialiseChatBot";
+import { useDispatch, useSelector } from "react-redux";
+import { moveSidebar, setSidebarState } from "../features/SideBar/sidebarSlice";
 
 export default function Sidebar() {
   const location = useLocation();
   const path = location.pathname.split("/")[2];
-  const [activeTab, setActiveTab] = useState(path);
+  const sidebar = useSelector((state) => state.sidebar.state);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const { data, isLoading: isLoadingData } = useLoginData();
   const { logout, isLoading } = useLogout();
+  const chatbot = useSelector((state) => state.chatbot.conversations);
 
   const { initializedChatBot, isLoading: loadingChatBot } =
     useInitialiseChatBot();
+
+  dispatch(setSidebarState(path));
 
   if (isLoading || isLoadingData) return <PageLoader type="read" />;
 
@@ -38,29 +43,32 @@ export default function Sidebar() {
         <SidebarButton
           icon={LayoutDashboard}
           label="Dashboard"
-          isActive={activeTab === "dashboard"}
+          isActive={sidebar === "dashboard"}
           onClick={() => {
-            setActiveTab("dashboard");
+            dispatch(moveSidebar("dashboard"));
             navigate("/user/dashboard");
           }}
         />
         <SidebarButton
           icon={User}
           label="Profile"
-          isActive={activeTab === "profile"}
+          isActive={sidebar === "profile"}
           onClick={() => {
-            setActiveTab("profile");
-
+            dispatch(moveSidebar("profile"));
             navigate(`/user/profile/${data.username}`);
           }}
         />
         <SidebarButton
           icon={Bot}
           label="Chat Bot"
-          isActive={activeTab === "studentChatbot"}
+          isActive={sidebar === "studentChatbot"}
           onClick={() => {
-            setActiveTab("studentChatbot");
-            initializedChatBot(data.username);
+            dispatch(moveSidebar("studentChatbot"));
+            if (chatbot.length === 0) {
+              initializedChatBot(data.username);
+              return;
+            }
+            navigate("/user/studentChatbot");
           }}
         />
       </nav>

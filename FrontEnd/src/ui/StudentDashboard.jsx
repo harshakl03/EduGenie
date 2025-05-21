@@ -5,14 +5,22 @@ import PageLoader from "./PageLoader";
 
 import useLoginData from "../features/Login/useLoginData";
 import useUserData from "../features/User/useUserData";
+import { useDispatch, useSelector } from "react-redux";
+import { moveSidebar } from "../features/SideBar/sidebarSlice";
+import useInitialiseChatBot from "../features/ChatBot/useInitialiseChatBot";
 
 export default function Dashboard() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const chatbot = useSelector((state) => state.chatbot.conversations);
 
   const { data: loginData, isLoading: loginLoading } = useLoginData();
   const { data, isLoading } = useUserData(loginData.username);
+  const { initializedChatBot, isLoading: initializingChatbot } =
+    useInitialiseChatBot();
 
-  if (loginLoading || isLoading) return <PageLoader type="show" />;
+  if (loginLoading || isLoading || initializingChatbot)
+    return <PageLoader type="show" />;
 
   return (
     <div className="space-y-10 px-8 py-10 bg-gradient-to-br to-white min-h-screen">
@@ -29,8 +37,12 @@ export default function Dashboard() {
             <Button
               text="Click here to start a chat"
               onClick={() => {
+                dispatch(moveSidebar("studentChatbot"));
+                if (chatbot.length === 0) {
+                  initializedChatBot(loginData.username);
+                  return;
+                }
                 navigate("/user/studentChatbot");
-                window.location.reload();
               }}
             />
           </div>

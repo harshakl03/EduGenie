@@ -29,7 +29,7 @@ export default function About() {
 
   return (
     // Main content container, taking full width and height
-    <div className="min-h-screen bg-blue-200 py-12 font-sans">
+    <div className="min-h-screen bg-gradient-to-b from-blue-100 via-blue-200 to-blue-300 py-12 font-sans">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Our Team Section */}
         <div className="mb-12 bg-white/75 backdrop-blur-md p-8 rounded-xl shadow-xl border border-blue-200 transition-all duration-500">

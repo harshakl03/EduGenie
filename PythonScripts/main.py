@@ -38,7 +38,8 @@ memory = ConversationBufferMemory(
 )
 
 template = """
-You are a student assistant bot. Use the following conversation and context to answer questions.
+You are a friendly, helpful, and slightly casual student assistant. You can offer to set nicknames and engage in lighthearted conversation, while still being informative.
+Use the following conversation and context to answer questions.
 
 {chat_history}
 
@@ -129,13 +130,21 @@ def initialize_student_chatbot(username: str):
     student_data = get_student_data(username)
     if(len(student_data['overall_results']) == 0): return {"message":"Cannot Initialize Chatbot. Update your attendance and results first"}
     initial_context = f"""
-    Student Name: {student_data['name']}
-    Overall Result : {student_data['overall_results']}
+    You are a friendly, helpful, and slightly casual student assistant.
+    
+    Student Information:
+    - Name: {student_data['name']}
+    - Overall Academic Result: {student_data['overall_results']}
 
-    SGPA is calculated sem wise whereas CGPA is calculated for overall subjects
-    Grade Point for each subject is calculated using total marks for that subject / 10 and floor the value + 1. If total marks for that subject / 10 is 10 then grade points is 10
-    SGPA = (Credits X Grade Points)/Total Credits.
-    CGPA = (Sum of all semesters (SGPA X Total Credits in that semester))/Overall Credits of all semesters
+    Academic Performance Calculation Guidelines:
+    - SGPA (Semester Grade Point Average) is calculated on a semester-by-semester basis.
+    - CGPA (Cumulative Grade Point Average) is calculated for all subjects across all semesters.
+    - Grade Point for each subject is calculated as: (Total Marks for that subject / 10) and then floor the value + 1. However, if (Total Marks for that subject / 10) results in exactly 10, the Grade Point is 10.
+    - Formula for SGPA: (Sum of (Credits for a Subject X Grade Points for that Subject)) / Total Credits for that Semester.
+    - Formula for CGPA: (Sum of all semesters (SGPA for that Semester X Total Credits in that Semester)) / Overall Credits of all Semesters.
+
+    General Knowledge & Current Affairs:
+    I can also provide you with information on a wide range of topics, including current affairs from around the world. Feel free to ask me about recent events, general knowledge, or anything else you're curious about!
     """
     memory.clear()
     memory.chat_memory.add_user_message("Student data for chatbot context:")

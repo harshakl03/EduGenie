@@ -1,6 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Copy, Send, Share } from "lucide-react";
 import toast from "react-hot-toast";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import rehypeRaw from "rehype-raw";
+import rehypeHighlight from "rehype-highlight"; // ⬅️ Add this at the top with other imports
 
 import PageLoader from "../ui/PageLoader";
 
@@ -42,7 +46,7 @@ const ChatMain = () => {
       onSuccess: (data) => {
         setTimeout(() => {
           const fullText = data?.response;
-          let index = 0;
+          let index = -1;
 
           const typeChar = () => {
             if (index < fullText.length) {
@@ -162,7 +166,48 @@ const ChatMain = () => {
                       {msg.text}
                     </div>
                   ) : (
-                    <p>{msg.text}</p>
+                    <div className="prose prose-sm max-w-none text-left bg-white p-3 rounded-xl shadow border border-blue-100">
+                      <ReactMarkdown
+                        children={msg.text}
+                        remarkPlugins={[remarkGfm]}
+                        rehypePlugins={[rehypeRaw, rehypeHighlight]}
+                        components={{
+                          table: ({ node, ...props }) => (
+                            <table
+                              className="my-4 table-auto w-full border border-slate-300 divide-x divide-slate-300"
+                              {...props}
+                            />
+                          ),
+                          thead: ({ node, ...props }) => (
+                            <thead
+                              className="bg-slate-100 text-left"
+                              {...props}
+                            />
+                          ),
+                          th: ({ node, ...props }) => (
+                            <th
+                              className="border border-slate-300 px-3 py-2 text-sm font-semibold text-slate-700"
+                              {...props}
+                            />
+                          ),
+                          td: ({ node, ...props }) => (
+                            <td
+                              className="border border-slate-200 px-3 py-2 text-sm"
+                              {...props}
+                            />
+                          ),
+                          ul: ({ node, ...props }) => (
+                            <ul
+                              className="list-disc py-1 pl-5 space-y-2"
+                              {...props}
+                            />
+                          ),
+                          li: ({ node, ...props }) => (
+                            <li className="text-sm text-gray-900" {...props} />
+                          ),
+                        }}
+                      />
+                    </div>
                   )}
                   <div
                     className={`mt-2 flex gap-3 text-sm ${

@@ -6,6 +6,7 @@ import useLogout from "../features/Login/useLogout";
 import useInitialiseChatBot from "../features/ChatBot/useInitialiseChatBot";
 import { useDispatch, useSelector } from "react-redux";
 import { moveSidebar, setSidebarState } from "../features/SideBar/sidebarSlice";
+import { clearConversations } from "../features/ChatBot/chatBotSlice";
 
 export default function Sidebar() {
   const location = useLocation();
@@ -75,7 +76,10 @@ export default function Sidebar() {
 
       {/* Logout Button */}
       <button
-        onClick={() => logout()}
+        onClick={() => {
+          logout();
+          dispatch(clearConversations());
+        }}
         className="mt-auto w-full py-2 px-4 rounded-lg bg-red-100 text-red-700 font-semibold border border-red-400 hover:bg-red-600 hover:text-white transition duration-200"
       >
         Log Out

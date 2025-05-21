@@ -3,10 +3,10 @@ const connectDB = require("../config/db");
 const { Binary } = require("mongodb");
 const fs = require("fs");
 
-const pavanImage = new Binary(fs.readFileSync("./images/pavan.JPG"));
-const harshaImage = new Binary(fs.readFileSync("./images/harsha.JPG"));
-const amaanImage = new Binary(fs.readFileSync("./images/amaan.jpg"));
-const eshwarImage = new Binary(fs.readFileSync("./images/eshwar.JPG"));
+const pavanImage = new Binary(fs.readFileSync("./images/pavan.png"));
+const harshaImage = new Binary(fs.readFileSync("./images/harsha.png"));
+const amaanImage = new Binary(fs.readFileSync("./images/amaan.png"));
+const eshwarImage = new Binary(fs.readFileSync("./images/eshwar.png"));
 
 const studentRecords = [
   {

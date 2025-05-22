@@ -1,6 +1,7 @@
 const Teacher = require("../Models/Teacher");
 const Student = require("../Models/Student");
 const User = require("../Models/User");
+const Results = require("../Models/Result");
 const { isExisting, createUser, isLoggedIn } = require("./userController");
 
 const createTeacher = async (req, res) => {
@@ -18,7 +19,10 @@ const createTeacher = async (req, res) => {
 
     const exists = await isExisting(username);
 
-    if (exists) return res.status(401).json({ error:401,message: "User already exists" });
+    if (exists)
+      return res
+        .status(401)
+        .json({ error: 401, message: "User already exists" });
 
     const newTeacher = new Teacher({
       _id: username,
@@ -53,7 +57,7 @@ const getStudentsList = async (req, res) => {
         .status(403)
         .json({ message: "Unauthorized: No token provided" });
 
-    const teacher = await User.findOne({username});
+    const teacher = await User.findOne({ username });
 
     if (!teacher)
       return res
@@ -86,4 +90,65 @@ const getStudentsList = async (req, res) => {
   }
 };
 
-module.exports = { createTeacher, getStudentsList };
+const getStudentResultsById = async (req, res) => {
+  try {
+    const { username, subject_id } = req.params;
+    const token = req.cookies.user_token;
+    const status = await isLoggedIn(username, token);
+
+    if (status == -1)
+      return res
+        .status(403)
+        .json({ message: "Unauthorized: No token provided" });
+
+    if (status == 0 || status == 1)
+      return res
+        .status(403)
+        .json({ message: "Unauthorized: You don't have access" });
+
+    // const { Subjects_Undertaken } = await Teacher.findById(username, {
+    //   Subjects_Undertaken: 1,
+    //   _id: 0,
+    // });
+
+    const takesSubject = await Teacher.findOne({
+      _id: username,
+      Subjects_Undertaken: { $elemMatch: { $in: [subject_id] } },
+    });
+
+    if (!takesSubject)
+      return res.status(404).json({
+        message: "Unauthorized: You don't have access to this subject",
+      });
+
+    const students = await Results.find(
+      {},
+      { student_id: 1, results: 1, _id: 0 }
+    );
+    const subjectResults = [];
+
+    // for (const subject of Subjects_Undertaken) {
+    //   subjectResults[subject] = [];
+
+    for (const student of students) {
+      const result = student.results?.find(
+        (r) => r.subject_code === subject_id
+      );
+      if (result) {
+        subjectResults.push({
+          student_id: student.student_id,
+          internal: result.internal,
+          external: result.external,
+          total: result.total,
+        });
+      }
+    }
+    //}
+
+    return res.status(200).json({ subjectResults });
+  } catch (err) {
+    return res.status(err.statusCode || 500).json({ error: err.message });
+  }
+};
+
+module.exports = { createTeacher, getStudentsList, getStudentResultsById };

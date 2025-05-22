@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const TeacherSchema = new mongoose.Schema({
   _id: { type: String, required: true },
-  name: { type: String },
+  Name: { type: String },
   DOB: { type: String },
   Address: {
     value: { type: String, required: true },

@@ -46,6 +46,43 @@ const createTeacher = async (req, res) => {
   }
 };
 
+const addSubject = async (req, res) => {
+  try {
+    const username = req.params.username;
+    const subject_id = req.body.subject_id;
+    const token = req.cookies.user_token;
+    const status = await isLoggedIn(username, token);
+
+    if (status == -1)
+      return res
+        .status(403)
+        .json({ error: 403, message: "Unauthorized: No token provided" });
+
+    if (status == 0 || status == 1)
+      return res
+        .status(403)
+        .json({ error: 403, message: "Unauthorized: You don't have access" });
+
+    const existing = await Teacher.find({ Subjects_Undertaken: subject_id });
+    console.log(existing);
+
+    if (existing.length !== 0)
+      return res
+        .status(409)
+        .json({ error: 409, message: "Subject is already taken" });
+
+    await Teacher.findByIdAndUpdate(username, {
+      $push: { Subjects_Undertaken: subject_id },
+    });
+
+    return res
+      .status(200)
+      .json({ message: `Subject ${subject_id} added successfully` });
+  } catch (err) {
+    return res.status(err.statusCode || 500).json({ error: err.message });
+  }
+};
+
 const getStudentsList = async (req, res) => {
   try {
     const token = req.cookies.user_token;
@@ -55,19 +92,19 @@ const getStudentsList = async (req, res) => {
     if (status == -1)
       return res
         .status(403)
-        .json({ message: "Unauthorized: No token provided" });
+        .json({ error: 403, message: "Unauthorized: No token provided" });
 
     const teacher = await User.findOne({ username });
 
     if (!teacher)
       return res
         .status(400)
-        .json({ message: `Teacher with id:${id} doesn't exist` });
+        .json({ error: 400, message: `Teacher with id:${id} doesn't exist` });
 
     if (status == 0 || status == 1)
       return res
         .status(403)
-        .json({ message: "Unauthorized: You don't have access" });
+        .json({ error: 403, message: "Unauthorized: You don't have access" });
 
     const takesSubject = await Teacher.findOne({
       _id: username,
@@ -76,6 +113,7 @@ const getStudentsList = async (req, res) => {
 
     if (!takesSubject)
       return res.status(404).json({
+        error: 404,
         message: "Unauthorized: You don't have access to this subject",
       });
 
@@ -90,7 +128,7 @@ const getStudentsList = async (req, res) => {
   }
 };
 
-const getStudentResultsById = async (req, res) => {
+const getStudentResultsBySubjectId = async (req, res) => {
   try {
     const { username, subject_id } = req.params;
     const token = req.cookies.user_token;
@@ -99,17 +137,12 @@ const getStudentResultsById = async (req, res) => {
     if (status == -1)
       return res
         .status(403)
-        .json({ message: "Unauthorized: No token provided" });
+        .json({ error: 403, message: "Unauthorized: No token provided" });
 
     if (status == 0 || status == 1)
       return res
         .status(403)
-        .json({ message: "Unauthorized: You don't have access" });
-
-    // const { Subjects_Undertaken } = await Teacher.findById(username, {
-    //   Subjects_Undertaken: 1,
-    //   _id: 0,
-    // });
+        .json({ error: 403, message: "Unauthorized: You don't have access" });
 
     const takesSubject = await Teacher.findOne({
       _id: username,
@@ -118,6 +151,7 @@ const getStudentResultsById = async (req, res) => {
 
     if (!takesSubject)
       return res.status(404).json({
+        error: 404,
         message: "Unauthorized: You don't have access to this subject",
       });
 
@@ -126,9 +160,6 @@ const getStudentResultsById = async (req, res) => {
       { student_id: 1, results: 1, _id: 0 }
     );
     const subjectResults = [];
-
-    // for (const subject of Subjects_Undertaken) {
-    //   subjectResults[subject] = [];
 
     for (const student of students) {
       const result = student.results?.find(
@@ -143,7 +174,6 @@ const getStudentResultsById = async (req, res) => {
         });
       }
     }
-    //}
 
     return res.status(200).json({ subjectResults });
   } catch (err) {
@@ -151,4 +181,59 @@ const getStudentResultsById = async (req, res) => {
   }
 };
 
-module.exports = { createTeacher, getStudentsList, getStudentResultsById };
+const getStudentResultsById = async (req, res) => {
+  try {
+    const username = req.params.username;
+    const token = req.cookies.user_token;
+    const status = await isLoggedIn(username, token);
+
+    if (status == -1)
+      return res
+        .status(403)
+        .json({ message: "Unauthorized: No token provided" });
+
+    if (status == 0 || status == 1)
+      return res
+        .status(403)
+        .json({ message: "Unauthorized: You don't have access" });
+
+    const { Subjects_Undertaken } = await Teacher.findById(username, {
+      Subjects_Undertaken: 1,
+      _id: 0,
+    });
+
+    const students = await Results.find(
+      {},
+      { student_id: 1, results: 1, _id: 0 }
+    );
+    const subjectResults = {};
+
+    for (const subject of Subjects_Undertaken) {
+      subjectResults[subject] = [];
+
+      for (const student of students) {
+        const result = student.results?.find((r) => r.subject_code === subject);
+        if (result) {
+          subjectResults[subject].push({
+            student_id: student.student_id,
+            internal: result.internal,
+            external: result.external,
+            total: result.total,
+          });
+        }
+      }
+    }
+
+    return res.status(200).json({ subjectResults });
+  } catch (err) {
+    return res.status(err.statusCode || 500).json({ error: err.message });
+  }
+};
+
+module.exports = {
+  createTeacher,
+  addSubject,
+  getStudentsList,
+  getStudentResultsById,
+  getStudentResultsBySubjectId,
+};

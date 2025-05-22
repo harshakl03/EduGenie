@@ -145,9 +145,22 @@ export default function Profile() {
             <span className="font-semibold">Country:</span>{" "}
             {data.Address?.country || "-"}
           </div>
-          <div className="col-span-2">
-            <span className="font-semibold">Course:</span> {data.Course}
-          </div>
+          {data.role === "Student" ? (
+            <div className="col-span-2">
+              <span className="font-semibold">Course</span> {data.Course}
+            </div>
+          ) : (
+            <>
+              <div>
+                <span className="font-semibold">Department:</span>{" "}
+                {data.Department}
+              </div>
+              <div>
+                <span className="font-semibold">Designation:</span>{" "}
+                {data.Designation}
+              </div>
+            </>
+          )}
         </div>
 
         <h3 className="text-2xl font-extrabold border-b pb-3 mt-10 mb-6 text-[#0D1B4C]">

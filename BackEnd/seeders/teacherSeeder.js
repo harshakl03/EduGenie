@@ -4,7 +4,7 @@ const connectDB = require("../config/db");
 const teacherRecords = [
   {
     _id: "prathik_k",
-    name: "Prathik K",
+    Name: "Prathik K",
     DOB: "21-05-1981",
     Address: {
       value: "VV Puram",
@@ -19,7 +19,7 @@ const teacherRecords = [
   },
   {
     _id: "tejaswini_ps",
-    name: "Tejaswini P S",
+    Name: "Tejaswini P S",
     DOB: "28-01-1975",
     Address: {
       value: "Rajajinagar",

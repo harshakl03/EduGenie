@@ -1,9 +1,14 @@
 import { useState } from "react";
 import Button from "../ui/Button";
 
+import useLoginData from "../features/Login/useLoginData";
+import useUserData from "../features/User/useUserData";
+import PageLoader from "./PageLoader";
+
 export default function TeacherDashboard() {
+  const { data: loginData, isLoading: loginLoading } = useLoginData();
+  const { data: userData, isLoading } = useUserData(loginData.username);
   const [showAllStudents, setShowAllStudents] = useState(false);
-  const [subjects, setSubjects] = useState(["BDA"]);
   const [students, setStudents] = useState([
     "Pavan D",
     "Harsha K L",
@@ -11,9 +16,7 @@ export default function TeacherDashboard() {
     "Amaan M",
   ]);
 
-  const addSubject = () => {
-    setSubjects([...subjects, `Subject ${subjects.length + 1}`]);
-  };
+  const addSubject = () => {};
 
   const addStudent = () => {
     setStudents([...students, `Student ${students.length + 1}`]);
@@ -35,6 +38,8 @@ export default function TeacherDashboard() {
   };
 
   const dates = getDates();
+
+  if (isLoading || loginLoading) return <PageLoader type="show" />;
 
   return (
     <div className="p-6 bg-white-50 max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -62,7 +67,7 @@ export default function TeacherDashboard() {
 
         {/* SUBJECT CARDS */}
         <section className="flex flex-col gap-4">
-          {subjects.map((subject, index) => (
+          {userData?.Subjects_Undertaken?.map((subject, index) => (
             <div
               key={index}
               className="bg-[#f3f8ff] rounded-xl border border-blue-200 p-4 flex justify-between items-center shadow"
@@ -133,7 +138,7 @@ export default function TeacherDashboard() {
               Edu Genie Chat Bot
             </h2>
             <p className="text-center text-gray-800 text-lg mb-4">
-              Hi! <br /> <strong>Pavan.D</strong>
+              Hi! <br /> <strong>{userData.Name}</strong>
             </p>
             <Button text="Click here to start a chat" kind="secondary" />
           </div>

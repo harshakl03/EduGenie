@@ -95,7 +95,7 @@ export default function Dashboard() {
       {/* Right section (Uploads and Stats) */}
       <div className="grid grid-cols-3 gap-6">
         {/* Recent Uploads */}
-        <div className="bg-blue-900 text-white p-6 rounded-2xl border border-blue-800 shadow-md col-span-1 hover:shadow-xl transition duration-300">
+        <div className="bg-blue-900 text-white p-6 rounded-2xl border hover:scale-[1.03] border-blue-800 shadow-md col-span-1 hover:shadow-xl transition duration-300">
           <h3 className="font-bold text-lg mb-3 border-b border-white pb-1">
             Recent Uploads
           </h3>
@@ -117,7 +117,7 @@ export default function Dashboard() {
 
         {/* Stats Section */}
         <div className="col-span-2 flex gap-6">
-          <div className="flex-1 bg-yellow-200 border border-yellow-500 p-6 rounded-2xl shadow flex flex-col items-center justify-center hover:scale-[1.03] transition-transform duration-300">
+          <div className="flex-1 bg-pink-200 border border-pink-500 p-6 rounded-2xl shadow flex flex-col items-center justify-center hover:scale-[1.03] transition-transform duration-300">
             <p className="text-xl p-10font-semibold text-yellow-800">
               Day Streak
             </p>

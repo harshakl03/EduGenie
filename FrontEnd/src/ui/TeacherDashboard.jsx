@@ -42,7 +42,12 @@ export default function TeacherDashboard() {
   if (isLoading || loginLoading) return <PageLoader type="show" />;
 
   return (
-    <div className="p-6 bg-white-50 max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div className="relative p-6 bg-white-50 max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+      {/* WATERMARK OVERLAY */}
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none opacity-70 text-8xl font-extrabold text-red-500 whitespace-nowrap">
+        UNDER DEVELOPMENT
+      </div>
+
       {/* LEFT SIDE: ATTENDANCE SECTION */}
       <div className="flex flex-col gap-8">
         {/* DATES */}

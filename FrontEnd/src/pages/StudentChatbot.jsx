@@ -59,7 +59,7 @@ const ChatMain = () => {
             if (index < fullText.length) {
               setTypingText((prev) => prev + fullText[index]);
               index++;
-              setTimeout(typeChar, 25);
+              setTimeout(typeChar, 10);
             } else {
               dispatch(addResponse(data.respone));
               setIsTyping(false);
